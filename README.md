@@ -17,6 +17,28 @@ This fork keeps Bootstrap 5 fully compatible with modern toolchains: Dart Sass (
 upcoming `@import` removal), Node.js 22, ESLint 9 flat config, Vitest and Playwright. The public
 API stays identical to upstream Bootstrap 5.3.
 
+## Why upgrade
+
+Upstream 5.3.x is stable, but its toolchain and Sass sources still carry deprecations that will
+break or warn under Dart Sass 2/3 and modern Node. The fork removes that friction while keeping
+the public API identical to 5.3.8.
+
+- **Dart Sass 2/3 ready** — the remaining deprecations are gone: `if()` function syntax,
+  `color.red()/green()/blue()`, `mixed-decls`. Only `import` remains (which can be silenced), and the
+  `scss/module/` tree (`@use`/`@forward`) is ready for when it disappears.
+- **Drop-in total** — an npm alias is all it takes: byte-identical CSS verified by golden
+  tests, vanilla JS and Popper 2 unchanged, `data-*` attributes and plugin APIs identical.
+  Nothing to rewrite.
+- **Incremental change** — the `@use` migration can be done file by file: `scss/` and
+  `scss/module/` coexist in the same package.
+- **Real confidence** — 822 unit tests, 18 end-to-end tests across Chromium/Firefox/WebKit
+  covering what jsdom cannot (focus trapping, geometry, keyboard navigation), Sass True
+  coverage, and automated CSS parity checks between both Sass trees.
+- **Node.js 22 toolchain** — ESLint 9 flat config, Vitest, Playwright, recalibrated
+  bundlewatch and Dependabot: a solid base to keep patching.
+
+In short: **same Bootstrap 5, but it compiles, runs and installs like a 2026 library.**
+
 ## Installation
 
 ```bash
