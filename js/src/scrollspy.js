@@ -136,7 +136,7 @@ class ScrollSpy extends BaseComponent {
       const observableSection = this._observableSections.get(event.target.hash)
       if (observableSection) {
         event.preventDefault()
-        const root = this._rootElement || window
+        const root = this._rootElement || globalThis
         const height = observableSection.offsetTop - this._element.offsetTop
         if (root.scrollTo) {
           root.scrollTo({ top: height, behavior: 'smooth' })
@@ -281,7 +281,7 @@ class ScrollSpy extends BaseComponent {
  * Data API implementation
  */
 
-EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
   for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
     ScrollSpy.getOrCreateInstance(spy)
   }

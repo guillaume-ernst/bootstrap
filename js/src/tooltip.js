@@ -104,7 +104,7 @@ const DefaultType = {
 
 class Tooltip extends BaseComponent {
   constructor(element, config) {
-    if (typeof Popper === 'undefined') {
+    if (Popper === undefined) {
       throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)')
     }
 
@@ -221,7 +221,7 @@ class Tooltip extends BaseComponent {
     // only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
     if ('ontouchstart' in document.documentElement) {
-      for (const element of [].concat(...document.body.children)) {
+      for (const element of document.body.children) {
         EventHandler.on(element, 'mouseover', noop)
       }
     }
@@ -255,7 +255,7 @@ class Tooltip extends BaseComponent {
     // If this is a touch-enabled device we remove the extra
     // empty mouseover listeners we added for iOS support
     if ('ontouchstart' in document.documentElement) {
-      for (const element of [].concat(...document.body.children)) {
+      for (const element of document.body.children) {
         EventHandler.off(element, 'mouseover', noop)
       }
     }
@@ -293,9 +293,7 @@ class Tooltip extends BaseComponent {
   }
 
   _getTipElement() {
-    if (!this.tip) {
-      this.tip = this._createTipElement(this._newContent || this._getContentForTemplate())
-    }
+    this.tip ||= this._createTipElement(this._newContent || this._getContentForTemplate())
 
     return this.tip
   }
@@ -615,7 +613,7 @@ class Tooltip extends BaseComponent {
         return
       }
 
-      if (typeof data[config] === 'undefined') {
+      if (data[config] === undefined) {
         throw new TypeError(`No method named "${config}"`)
       }
 

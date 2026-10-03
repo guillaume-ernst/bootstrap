@@ -141,7 +141,7 @@ class Modal extends BaseComponent {
   }
 
   dispose() {
-    EventHandler.off(window, EVENT_KEY)
+    EventHandler.off(globalThis, EVENT_KEY)
     EventHandler.off(this._dialog, EVENT_KEY)
 
     this._backdrop.dispose()
@@ -217,7 +217,7 @@ class Modal extends BaseComponent {
       this._triggerBackdropTransition()
     })
 
-    EventHandler.on(window, EVENT_RESIZE, () => {
+    EventHandler.on(globalThis, EVENT_RESIZE, () => {
       if (this._isShown && !this._isTransitioning) {
         this._adjustDialog()
       }
@@ -323,7 +323,7 @@ class Modal extends BaseComponent {
         return
       }
 
-      if (typeof data[config] === 'undefined') {
+      if (data[config] === undefined) {
         throw new TypeError(`No method named "${config}"`)
       }
 

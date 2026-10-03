@@ -301,7 +301,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
 /**
  * Initialize on focus
  */
-EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
   for (const element of SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE)) {
     Tab.getOrCreateInstance(element)
   }

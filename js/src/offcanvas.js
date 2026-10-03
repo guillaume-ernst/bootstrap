@@ -257,13 +257,13 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
   data.toggle(this)
 })
 
-EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
   for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
     Offcanvas.getOrCreateInstance(selector).show()
   }
 })
 
-EventHandler.on(window, EVENT_RESIZE, () => {
+EventHandler.on(globalThis, EVENT_RESIZE, () => {
   for (const element of SelectorEngine.find('[aria-modal][class*=show][class*=offcanvas-]')) {
     if (getComputedStyle(element).position !== 'fixed') {
       Offcanvas.getOrCreateInstance(element).hide()

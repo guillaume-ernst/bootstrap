@@ -54,9 +54,7 @@ class Config {
       const valueType = isElement(value) ? 'element' : toType(value)
 
       if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new TypeError(
-          `${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`
-        )
+        throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`)
       }
     }
   }

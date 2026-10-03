@@ -34,7 +34,7 @@ function normalizeData(value) {
 }
 
 function normalizeDataKey(key) {
-  return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`)
+  return key.replaceAll(/[A-Z]/g, chr => `-${chr.toLowerCase()}`)
 }
 
 const Manipulator = {

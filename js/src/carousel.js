@@ -312,14 +312,12 @@ class Carousel extends BaseComponent {
 
     const nextElementIndex = this._getItemIndex(nextElement)
 
-    const triggerEvent = eventName => {
-      return EventHandler.trigger(this._element, eventName, {
-        relatedTarget: nextElement,
-        direction: this._orderToDirection(order),
-        from: this._getItemIndex(activeElement),
-        to: nextElementIndex
-      })
-    }
+    const triggerEvent = eventName => EventHandler.trigger(this._element, eventName, {
+      relatedTarget: nextElement,
+      direction: this._orderToDirection(order),
+      from: this._getItemIndex(activeElement),
+      to: nextElementIndex
+    })
 
     const slideEvent = triggerEvent(EVENT_SLIDE)
 
@@ -457,7 +455,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_SLIDE, function (e
   carousel._maybeEnableCycle()
 })
 
-EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
   const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE)
 
   for (const carousel of carousels) {

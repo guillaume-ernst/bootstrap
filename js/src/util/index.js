@@ -15,9 +15,9 @@ const TRANSITION_END = 'transitionend'
  * @returns {string}
  */
 const parseSelector = selector => {
-  if (selector && window.CSS && window.CSS.escape) {
+  if (selector && globalThis.CSS && globalThis.CSS.escape) {
     // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
-    selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`)
+    selector = selector.replaceAll(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`)
   }
 
   return selector
@@ -50,7 +50,7 @@ const getTransitionDurationFromElement = element => {
   }
 
   // Get transition-duration of the element
-  let { transitionDuration, transitionDelay } = window.getComputedStyle(element)
+  let { transitionDuration, transitionDelay } = globalThis.getComputedStyle(element)
 
   const floatTransitionDuration = Number.parseFloat(transitionDuration)
   const floatTransitionDelay = Number.parseFloat(transitionDelay)
@@ -76,11 +76,11 @@ const isElement = object => {
     return false
   }
 
-  if (typeof object.jquery !== 'undefined') {
+  if (object.jquery !== undefined) {
     object = object[0]
   }
 
-  return typeof object.nodeType !== 'undefined'
+  return object.nodeType !== undefined
 }
 
 const getElement = object => {
@@ -132,7 +132,7 @@ const isDisabled = element => {
     return true
   }
 
-  if (typeof element.disabled !== 'undefined') {
+  if (element.disabled !== undefined) {
     return element.disabled
   }
 
@@ -177,8 +177,8 @@ const reflow = element => {
 }
 
 const getjQuery = () => {
-  if (window.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
-    return window.jQuery
+  if (globalThis.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
+    return globalThis.jQuery
   }
 
   return null
@@ -222,9 +222,7 @@ const defineJQueryPlugin = plugin => {
   })
 }
 
-const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
-  return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue
-}
+const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue
 
 const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
   if (!waitForTransition) {

@@ -25,25 +25,25 @@ const FILES = [
 
 // Blame TC39... https://github.com/benjamingr/RegExp.escape/issues/37
 function regExpQuote(string) {
-  return string.replace(/[$()*+-.?[\\\]^{|}]/g, '\\$&')
+  return string.replaceAll(/[$()*+-.?[\\\]^{|}]/g, String.raw`\$&`)
 }
 
 function regExpQuoteReplacement(string) {
-  return string.replace(/\$/g, '$$')
+  return string.replaceAll('$', '$$')
 }
 
 async function replaceRecursively(file, oldVersion, newVersion) {
   const originalString = await fs.readFile(file, 'utf8')
   const newString = originalString
-    .replace(
+    .replaceAll(
       new RegExp(regExpQuote(oldVersion), 'g'),
       regExpQuoteReplacement(newVersion)
     )
     // Also replace the version used by the rubygem,
     // which is using periods (`.`) instead of hyphens (`-`)
-    .replace(
-      new RegExp(regExpQuote(oldVersion.replace(/-/g, '.')), 'g'),
-      regExpQuoteReplacement(newVersion.replace(/-/g, '.'))
+    .replaceAll(
+      new RegExp(regExpQuote(oldVersion.replaceAll('-', '.')), 'g'),
+      regExpQuoteReplacement(newVersion.replaceAll('-', '.'))
     )
 
   // No need to move any further if the strings are identical
@@ -90,9 +90,7 @@ async function main(args) {
 
   // Strip any leading `v` from arguments because
   // otherwise we will end up with duplicate `v`s
-  [oldVersion, newVersion] = [oldVersion, newVersion].map(arg => {
-    return arg.startsWith('v') ? arg.slice(1) : arg
-  })
+  [oldVersion, newVersion] = [oldVersion, newVersion].map(arg => arg.startsWith('v') ? arg.slice(1) : arg)
 
   if (oldVersion === newVersion) {
     showUsage(args)
@@ -101,9 +99,7 @@ async function main(args) {
   bumpNpmVersion(newVersion)
 
   try {
-    await Promise.all(
-      FILES.map(file => replaceRecursively(file, oldVersion, newVersion))
-    )
+    await Promise.all(FILES.map(file => replaceRecursively(file, oldVersion, newVersion)))
   } catch (error) {
     console.error(error)
     process.exit(1)

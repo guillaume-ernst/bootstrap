@@ -69,7 +69,7 @@ class ScrollBarHelper {
       }
 
       this._saveInitialAttribute(element, styleProperty)
-      const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty)
+      const calculatedValue = globalThis.getComputedStyle(element).getPropertyValue(styleProperty)
       element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`)
     }
 

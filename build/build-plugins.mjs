@@ -16,7 +16,7 @@ import banner from './banner.mjs'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const sourcePath = path.resolve(__dirname, '../js/src/').replace(/\\/g, '/')
+const sourcePath = path.resolve(__dirname, '../js/src/').replaceAll('\\', '/')
 const jsFiles = await globby(`${sourcePath}/**/*.js`)
 
 // Array which holds the resolved plugins
@@ -24,7 +24,7 @@ const resolvedPlugins = []
 
 // Trims the "js" extension and uppercases => first letter, hyphens, backslashes & slashes
 const filenameToEntity = filename => filename.replace('.js', '')
-  .replace(/(?:^|-|\/|\\)[a-z]/g, str => str.slice(-1).toUpperCase())
+  .replaceAll(/(?:^|-|\/|\\)[a-z]/g, str => str.slice(-1).toUpperCase())
 
 for (const file of jsFiles) {
   resolvedPlugins.push({
@@ -62,9 +62,7 @@ const build = async plugin => {
         return true
       }
 
-      const usedPlugin = resolvedPlugins.find(plugin => {
-        return plugin.src.includes(source.replace(pattern, ''))
-      })
+      const usedPlugin = resolvedPlugins.find(plugin => plugin.src.includes(source.replace(pattern, '')))
 
       if (!usedPlugin) {
         throw new Error(`Source ${source} is not mapped!`)

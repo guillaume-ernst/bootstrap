@@ -82,7 +82,7 @@ function getElementEvents(element) {
   const uid = makeEventUid(element)
 
   element.uidEvent = uid
-  eventRegistry[uid] = eventRegistry[uid] || {}
+  eventRegistry[uid] ||= {}
 
   return eventRegistry[uid]
 }
@@ -149,11 +149,9 @@ function addHandler(element, originalTypeEvent, handler, delegationFunction, one
   // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
   // this prevents the handler from being dispatched the same way as mouseover or mouseout does
   if (originalTypeEvent in customEvents) {
-    const wrapFunction = fn => {
-      return function (event) {
-        if (!event.relatedTarget || (event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget))) {
-          return fn.call(this, event)
-        }
+    const wrapFunction = fn => function (event) {
+      if (!event.relatedTarget || (event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget))) {
+        return fn.call(this, event)
       }
     }
 
@@ -161,11 +159,12 @@ function addHandler(element, originalTypeEvent, handler, delegationFunction, one
   }
 
   const events = getElementEvents(element)
-  const handlers = events[typeEvent] || (events[typeEvent] = {})
+  events[typeEvent] ||= {}
+  const handlers = events[typeEvent]
   const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null)
 
   if (previousFunction) {
-    previousFunction.oneOff = previousFunction.oneOff && oneOff
+    previousFunction.oneOff &&= oneOff
 
     return
   }
@@ -231,7 +230,7 @@ const EventHandler = {
     const storeElementEvent = events[typeEvent] || {}
     const isNamespace = originalTypeEvent.startsWith('.')
 
-    if (typeof callable !== 'undefined') {
+    if (callable !== undefined) {
       // Simplest case: handler is passed, remove that listener ONLY.
       if (!Object.keys(storeElementEvent).length) {
         return
