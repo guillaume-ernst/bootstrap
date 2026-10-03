@@ -185,7 +185,7 @@ class Modal {
   }
 
   dispose() {
-    [window, this._element, this._dialog]
+    [globalThis, this._element, this._dialog]
       .forEach(htmlElement => $(htmlElement).off(EVENT_KEY))
 
     /**
@@ -259,7 +259,7 @@ class Modal {
     const modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null
 
     if (!this._element.parentNode ||
-        this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+    	this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
       // Don't move modal's DOM position
       document.body.appendChild(this._element)
     }
@@ -314,8 +314,8 @@ class Modal {
       .off(EVENT_FOCUSIN) // Guard against infinite focus loop
       .on(EVENT_FOCUSIN, event => {
         if (document !== event.target &&
-            this._element !== event.target &&
-            $(this._element).has(event.target).length === 0) {
+        	this._element !== event.target &&
+        	$(this._element).has(event.target).length === 0) {
           this._element.focus()
         }
       })
@@ -338,9 +338,9 @@ class Modal {
 
   _setResizeEvent() {
     if (this._isShown) {
-      $(window).on(EVENT_RESIZE, event => this.handleUpdate(event))
+      $(globalThis).on(EVENT_RESIZE, event => this.handleUpdate(event))
     } else {
-      $(window).off(EVENT_RESIZE)
+      $(globalThis).off(EVENT_RESIZE)
     }
   }
 
@@ -367,7 +367,8 @@ class Modal {
 
   _showBackdrop(callback) {
     const animate = $(this._element).hasClass(CLASS_NAME_FADE) ?
-      CLASS_NAME_FADE : ''
+      CLASS_NAME_FADE :
+      ''
 
     if (this._isShown && this._config.backdrop) {
       this._backdrop = document.createElement('div')
@@ -517,7 +518,7 @@ class Modal {
     const elements = [].slice.call(document.querySelectorAll(`${SELECTOR_STICKY_CONTENT}`))
     $(elements).each((index, element) => {
       const margin = $(element).data('margin-right')
-      if (typeof margin !== 'undefined') {
+      if (margin !== undefined) {
         $(element).css('margin-right', margin).removeData('margin-right')
       }
     })
@@ -553,7 +554,7 @@ class Modal {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 
@@ -578,7 +579,8 @@ $(document).on(EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
   }
 
   const config = $(target).data(DATA_KEY) ?
-    'toggle' : {
+    'toggle' :
+    {
       ...$(target).data(),
       ...$(this).data()
     }

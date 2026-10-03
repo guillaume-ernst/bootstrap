@@ -56,10 +56,10 @@ class Tab {
   // Public
   show() {
     if (this._element.parentNode &&
-        this._element.parentNode.nodeType === Node.ELEMENT_NODE &&
-        $(this._element).hasClass(CLASS_NAME_ACTIVE) ||
-        $(this._element).hasClass(CLASS_NAME_DISABLED) ||
-        this._element.hasAttribute('disabled')) {
+    	this._element.parentNode.nodeType === Node.ELEMENT_NODE &&
+    	$(this._element).hasClass(CLASS_NAME_ACTIVE) ||
+    	$(this._element).hasClass(CLASS_NAME_DISABLED) ||
+    	this._element.hasAttribute('disabled')) {
       return
     }
 
@@ -71,7 +71,7 @@ class Tab {
     if (listElement) {
       const itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE
       previous = $.makeArray($(listElement).find(itemSelector))
-      previous = previous[previous.length - 1]
+      previous = previous.at(-1)
     }
 
     const hideEvent = $.Event(EVENT_HIDE, {
@@ -89,7 +89,7 @@ class Tab {
     $(this._element).trigger(showEvent)
 
     if (showEvent.isDefaultPrevented() ||
-        hideEvent.isDefaultPrevented()) {
+    	hideEvent.isDefaultPrevented()) {
       return
     }
 
@@ -157,9 +157,7 @@ class Tab {
     if (active) {
       $(active).removeClass(CLASS_NAME_ACTIVE)
 
-      const dropdownChild = $(active.parentNode).find(
-        SELECTOR_DROPDOWN_ACTIVE_CHILD
-      )[0]
+      const dropdownChild = $(active.parentNode).find(SELECTOR_DROPDOWN_ACTIVE_CHILD)[0]
 
       if (dropdownChild) {
         $(dropdownChild).removeClass(CLASS_NAME_ACTIVE)
@@ -215,7 +213,7 @@ class Tab {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 

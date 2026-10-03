@@ -55,10 +55,8 @@ class Collapse {
     this._isTransitioning = false
     this._element = element
     this._config = this._getConfig(config)
-    this._triggerArray = [].slice.call(document.querySelectorAll(
-      `[data-toggle="collapse"][href="#${element.id}"],` +
-      `[data-toggle="collapse"][data-target="#${element.id}"]`
-    ))
+    this._triggerArray = [].slice.call(document.querySelectorAll(`[data-toggle="collapse"][href="#${element.id}"],` +
+    	`[data-toggle="collapse"][data-target="#${element.id}"]`))
 
     const toggleList = [].slice.call(document.querySelectorAll(SELECTOR_DATA_TOGGLE))
     for (let i = 0, len = toggleList.length; i < len; i++) {
@@ -104,7 +102,7 @@ class Collapse {
 
   show() {
     if (this._isTransitioning ||
-      $(this._element).hasClass(CLASS_NAME_SHOW)) {
+    	$(this._element).hasClass(CLASS_NAME_SHOW)) {
       return
     }
 
@@ -187,7 +185,7 @@ class Collapse {
 
   hide() {
     if (this._isTransitioning ||
-      !$(this._element).hasClass(CLASS_NAME_SHOW)) {
+    	!$(this._element).hasClass(CLASS_NAME_SHOW)) {
       return
     }
 
@@ -278,7 +276,7 @@ class Collapse {
       parent = this._config.parent
 
       // It's a jQuery object
-      if (typeof this._config.parent.jquery !== 'undefined') {
+      if (this._config.parent.jquery !== undefined) {
         parent = this._config.parent[0]
       }
     } else {
@@ -334,7 +332,7 @@ class Collapse {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 

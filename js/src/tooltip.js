@@ -7,7 +7,7 @@
 
 import { DefaultWhitelist, sanitizeHtml } from './tools/sanitizer'
 import $ from 'jquery'
-import Popper from 'popper.js'
+import { createPopper } from '@popperjs/core'
 import Util from './util'
 
 /**
@@ -48,8 +48,8 @@ const AttachmentMap = {
 const Default = {
   animation: true,
   template: '<div class="tooltip" role="tooltip">' +
-                    '<div class="arrow"></div>' +
-                    '<div class="tooltip-inner"></div></div>',
+    '<div class="arrow"></div>' +
+    '<div class="tooltip-inner"></div></div>',
   trigger: 'hover focus',
   title: '',
   delay: 0,
@@ -106,7 +106,7 @@ const Event = {
 
 class Tooltip {
   constructor(element, config) {
-    if (typeof Popper === 'undefined') {
+    if (createPopper === undefined) {
       throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)')
     }
 
@@ -238,7 +238,7 @@ class Tooltip {
 
       const shadowRoot = Util.findShadowRoot(this.element)
       const isInTheDom = $.contains(
-        shadowRoot !== null ? shadowRoot : this.element.ownerDocument.documentElement,
+        shadowRoot === null ? this.element.ownerDocument.documentElement : shadowRoot,
         this.element
       )
 
@@ -274,7 +274,7 @@ class Tooltip {
 
       $(this.element).trigger(this.constructor.Event.INSERTED)
 
-      this._popper = new Popper(this.element, tip, this._getPopperConfig(attachment))
+      this._popper = createPopper(this.element, tip, this._getPopperConfig(attachment))
 
       $(tip).addClass(CLASS_NAME_SHOW)
       $(tip).addClass(this.config.customClass)
@@ -367,7 +367,7 @@ class Tooltip {
 
   update() {
     if (this._popper !== null) {
-      this._popper.scheduleUpdate()
+      this._popper.update()
     }
   }
 
@@ -381,7 +381,7 @@ class Tooltip {
   }
 
   getTipElement() {
-    this.tip = this.tip || $(this.config.template)[0]
+    this.tip ||= $(this.config.template)[0]
     return this.tip
   }
 
@@ -419,11 +419,9 @@ class Tooltip {
   getTitle() {
     let title = this.element.getAttribute('data-original-title')
 
-    if (!title) {
-      title = typeof this.config.title === 'function' ?
-        this.config.title.call(this.element) :
-        this.config.title
-    }
+    title ||= typeof this.config.title === 'function' ?
+      this.config.title.call(this.element) :
+      this.config.title
 
     return title
   }
@@ -432,49 +430,88 @@ class Tooltip {
   _getPopperConfig(attachment) {
     const defaultBsConfig = {
       placement: attachment,
-      modifiers: {
-        offset: this._getOffset(),
-        flip: {
-          behavior: this.config.fallbackPlacement
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: this._getOffset()
+          }
         },
-        arrow: {
-          element: SELECTOR_ARROW
+        {
+          name: 'flip',
+          options: {
+            fallbackPlacements: this._getFallbackPlacements()
+          }
         },
-        preventOverflow: {
-          boundariesElement: this.config.boundary
+        {
+          name: 'preventOverflow',
+          options: {
+            boundary: this._getBoundary()
+          }
+        },
+        {
+          name: 'arrow',
+          options: {
+            element: SELECTOR_ARROW
+          }
+        },
+        {
+          name: 'bootstrapPlacement',
+          enabled: true,
+          phase: 'afterWrite',
+          fn: data => {
+            const newPlacement = data.state.placement
+            if (this._lastPopperPlacement !== newPlacement) {
+              this._handlePopperPlacementChange({
+                instance: data.instance,
+                placement: newPlacement
+              })
+              this._lastPopperPlacement = newPlacement
+            }
+          }
         }
-      },
-      onCreate: data => {
-        if (data.originalPlacement !== data.placement) {
-          this._handlePopperPlacementChange(data)
-        }
-      },
-      onUpdate: data => this._handlePopperPlacementChange(data)
+      ]
     }
+
+    const customConfig = typeof this.config.popperConfig === 'function' ?
+      this.config.popperConfig(defaultBsConfig) :
+      this.config.popperConfig
 
     return {
       ...defaultBsConfig,
-      ...this.config.popperConfig
+      ...customConfig
     }
   }
 
   _getOffset() {
-    const offset = {}
-
     if (typeof this.config.offset === 'function') {
-      offset.fn = data => {
-        data.offsets = {
-          ...data.offsets,
-          ...this.config.offset(data.offsets, this.element)
-        }
-
-        return data
-      }
-    } else {
-      offset.offset = this.config.offset
+      return popperData => this.config.offset(popperData, this.element)
     }
 
-    return offset
+    if (typeof this.config.offset === 'string') {
+      return this.config.offset.split(',').map(value => Number.parseInt(value, 10))
+    }
+
+    return this.config.offset
+  }
+
+  _getFallbackPlacements() {
+    const fallback = this.config.fallbackPlacement
+
+    if (fallback === 'flip') {
+      return ['top', 'bottom', 'left', 'right']
+    }
+
+    if (typeof fallback === 'string') {
+      return [fallback]
+    }
+
+    return fallback
+  }
+
+  _getBoundary() {
+    // Popper 1 accepted 'scrollParent'; Popper 2 equivalent is 'clippingParents'
+    return this.config.boundary === 'scrollParent' ? 'clippingParents' : this.config.boundary
   }
 
   _getContainer() {
@@ -551,7 +588,7 @@ class Tooltip {
 
   _enter(event, context) {
     const dataKey = this.constructor.DATA_KEY
-    context = context || $(event.currentTarget).data(dataKey)
+    context ||= $(event.currentTarget).data(dataKey)
 
     if (!context) {
       context = new this.constructor(
@@ -590,7 +627,7 @@ class Tooltip {
 
   _leave(event, context) {
     const dataKey = this.constructor.DATA_KEY
-    context = context || $(event.currentTarget).data(dataKey)
+    context ||= $(event.currentTarget).data(dataKey)
 
     if (!context) {
       context = new this.constructor(
@@ -703,24 +740,14 @@ class Tooltip {
   }
 
   _handlePopperPlacementChange(popperData) {
-    this.tip = popperData.instance.popper
+    this.tip = popperData.instance.state.elements.popper
     this._cleanTipClass()
     this.addAttachmentClass(this._getAttachment(popperData.placement))
   }
 
   _fixTransition() {
-    const tip = this.getTipElement()
-    const initConfigAnimation = this.config.animation
-
-    if (tip.getAttribute('x-placement') !== null) {
-      return
-    }
-
-    $(tip).removeClass(CLASS_NAME_FADE)
-    this.config.animation = false
-    this.hide()
-    this.show()
-    this.config.animation = initConfigAnimation
+    // Popper 2 sets the placement attribute before the tooltip is shown,
+    // so the old x-placement workaround is no longer needed.
   }
 
   // Static
@@ -740,7 +767,7 @@ class Tooltip {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 

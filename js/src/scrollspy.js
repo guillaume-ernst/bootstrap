@@ -57,11 +57,11 @@ const DefaultType = {
 class ScrollSpy {
   constructor(element, config) {
     this._element = element
-    this._scrollElement = element.tagName === 'BODY' ? window : element
+    this._scrollElement = element.tagName === 'BODY' ? globalThis : element
     this._config = this._getConfig(config)
     this._selector = `${this._config.target} ${SELECTOR_NAV_LINKS},` +
-                          `${this._config.target} ${SELECTOR_LIST_ITEMS},` +
-                          `${this._config.target} ${SELECTOR_DROPDOWN_ITEMS}`
+    	`${this._config.target} ${SELECTOR_LIST_ITEMS},` +
+    	`${this._config.target} ${SELECTOR_DROPDOWN_ITEMS}`
     this._offsets = []
     this._targets = []
     this._activeTarget = null
@@ -85,13 +85,16 @@ class ScrollSpy {
   // Public
   refresh() {
     const autoMethod = this._scrollElement === this._scrollElement.window ?
-      METHOD_OFFSET : METHOD_POSITION
+      METHOD_OFFSET :
+      METHOD_POSITION
 
     const offsetMethod = this._config.method === 'auto' ?
-      autoMethod : this._config.method
+      autoMethod :
+      this._config.method
 
     const offsetBase = offsetMethod === METHOD_POSITION ?
-      this._getScrollTop() : 0
+      this._getScrollTop() :
+      0
 
     this._offsets = []
     this._targets = []
@@ -167,8 +170,9 @@ class ScrollSpy {
   }
 
   _getScrollTop() {
-    return this._scrollElement === window ?
-      this._scrollElement.pageYOffset : this._scrollElement.scrollTop
+    return this._scrollElement === globalThis ?
+      this._scrollElement.pageYOffset :
+      this._scrollElement.scrollTop
   }
 
   _getScrollHeight() {
@@ -179,8 +183,9 @@ class ScrollSpy {
   }
 
   _getOffsetHeight() {
-    return this._scrollElement === window ?
-      window.innerHeight : this._scrollElement.getBoundingClientRect().height
+    return this._scrollElement === globalThis ?
+      window.innerHeight :
+      this._scrollElement.getBoundingClientRect().height
   }
 
   _process() {
@@ -193,7 +198,7 @@ class ScrollSpy {
     }
 
     if (scrollTop >= maxScroll) {
-      const target = this._targets[this._targets.length - 1]
+      const target = this._targets.at(-1)
 
       if (this._activeTarget !== target) {
         this._activate(target)
@@ -210,9 +215,9 @@ class ScrollSpy {
 
     for (let i = this._offsets.length; i--;) {
       const isActiveTarget = this._activeTarget !== this._targets[i] &&
-          scrollTop >= this._offsets[i] &&
-          (typeof this._offsets[i + 1] === 'undefined' ||
-              scrollTop < this._offsets[i + 1])
+      	scrollTop >= this._offsets[i] &&
+      	(this._offsets[i + 1] === undefined ||
+      		scrollTop < this._offsets[i + 1])
 
       if (isActiveTarget) {
         this._activate(this._targets[i])
@@ -274,7 +279,7 @@ class ScrollSpy {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 
@@ -288,7 +293,7 @@ class ScrollSpy {
  * Data API implementation
  */
 
-$(window).on(EVENT_LOAD_DATA_API, () => {
+$(globalThis).on(EVENT_LOAD_DATA_API, () => {
   const scrollSpys = [].slice.call(document.querySelectorAll(SELECTOR_DATA_SPY))
   const scrollSpysLength = scrollSpys.length
 

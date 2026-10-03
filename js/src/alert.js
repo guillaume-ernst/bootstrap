@@ -73,9 +73,7 @@ class Alert {
       parent = document.querySelector(selector)
     }
 
-    if (!parent) {
-      parent = $(element).closest(`.${CLASS_NAME_ALERT}`)[0]
-    }
+    parent ||= $(element).closest(`.${CLASS_NAME_ALERT}`)[0]
 
     return parent
   }

@@ -102,7 +102,7 @@ class Carousel {
     this._element = element
     this._indicatorsElement = this._element.querySelector(SELECTOR_INDICATORS)
     this._touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0
-    this._pointerEvent = Boolean(window.PointerEvent || window.MSPointerEvent)
+    this._pointerEvent = Boolean(globalThis.PointerEvent || globalThis.MSPointerEvent)
 
     this._addEventListeners()
   }
@@ -327,14 +327,18 @@ class Carousel {
     }
 
     switch (event.which) {
-      case ARROW_LEFT_KEYCODE:
+      case ARROW_LEFT_KEYCODE: {
         event.preventDefault()
         this.prev()
         break
-      case ARROW_RIGHT_KEYCODE:
+      }
+
+      case ARROW_RIGHT_KEYCODE: {
         event.preventDefault()
         this.next()
         break
+      }
+
       default:
     }
   }
@@ -352,7 +356,7 @@ class Carousel {
     const activeIndex = this._getItemIndex(activeElement)
     const lastItemIndex = this._items.length - 1
     const isGoingToWrap = isPrevDirection && activeIndex === 0 ||
-                            isNextDirection && activeIndex === lastItemIndex
+      isNextDirection && activeIndex === lastItemIndex
 
     if (isGoingToWrap && !this._config.wrap) {
       return activeElement
@@ -362,7 +366,8 @@ class Carousel {
     const itemIndex = (activeIndex + delta) % this._items.length
 
     return itemIndex === -1 ?
-      this._items[this._items.length - 1] : this._items[itemIndex]
+      this._items.at(-1) :
+      this._items[itemIndex]
   }
 
   _triggerSlideEvent(relatedTarget, eventDirectionName) {
@@ -405,7 +410,8 @@ class Carousel {
     const elementInterval = parseInt(element.getAttribute('data-interval'), 10)
 
     if (elementInterval) {
-      this._config.defaultInterval = this._config.defaultInterval || this._config.interval
+      this._config.defaultInterval ||= this._config.interval
+
       this._config.interval = elementInterval
     } else {
       this._config.interval = this._config.defaultInterval || this._config.interval
@@ -527,7 +533,7 @@ class Carousel {
       if (typeof config === 'number') {
         data.to(config)
       } else if (typeof action === 'string') {
-        if (typeof data[action] === 'undefined') {
+        if (data[action] === undefined) {
           throw new TypeError(`No method named "${action}"`)
         }
 
@@ -578,7 +584,7 @@ class Carousel {
 
 $(document).on(EVENT_CLICK_DATA_API, SELECTOR_DATA_SLIDE, Carousel._dataApiClickHandler)
 
-$(window).on(EVENT_LOAD_DATA_API, () => {
+$(globalThis).on(EVENT_LOAD_DATA_API, () => {
   const carousels = [].slice.call(document.querySelectorAll(SELECTOR_DATA_RIDE))
   for (let i = 0, len = carousels.length; i < len; i++) {
     const $carousel = $(carousels[i])

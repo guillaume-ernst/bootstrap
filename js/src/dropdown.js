@@ -6,7 +6,7 @@
  */
 
 import $ from 'jquery'
-import Popper from 'popper.js'
+import { createPopper } from '@popperjs/core'
 import Util from './util'
 
 /**
@@ -140,7 +140,7 @@ class Dropdown {
     // Totally disable Popper for Dropdowns in Navbar
     if (!this._inNavbar && usePopper) {
       // Check for Popper dependency
-      if (typeof Popper === 'undefined') {
+      if (createPopper === undefined) {
         throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)')
       }
 
@@ -152,7 +152,7 @@ class Dropdown {
         referenceElement = this._config.reference
 
         // Check if it's jQuery element
-        if (typeof this._config.reference.jquery !== 'undefined') {
+        if (this._config.reference.jquery !== undefined) {
           referenceElement = this._config.reference[0]
         }
       }
@@ -164,7 +164,7 @@ class Dropdown {
         $(parent).addClass(CLASS_NAME_POSITION_STATIC)
       }
 
-      this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig())
+      this._popper = createPopper(referenceElement, this._menu, this._getPopperConfig())
     }
 
     // If this is a touch-enabled device we add extra
@@ -172,7 +172,7 @@ class Dropdown {
     // only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
     if ('ontouchstart' in document.documentElement &&
-        $(parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
+    	$(parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
       $(document.body).children().on('mouseover', null, $.noop)
     }
 
@@ -226,7 +226,7 @@ class Dropdown {
   update() {
     this._inNavbar = this._detectNavbar()
     if (this._popper !== null) {
-      this._popper.scheduleUpdate()
+      this._popper.update()
     }
   }
 
@@ -292,48 +292,52 @@ class Dropdown {
   }
 
   _getOffset() {
-    const offset = {}
-
     if (typeof this._config.offset === 'function') {
-      offset.fn = data => {
-        data.offsets = {
-          ...data.offsets,
-          ...this._config.offset(data.offsets, this._element)
-        }
-
-        return data
-      }
-    } else {
-      offset.offset = this._config.offset
+      return popperData => this._config.offset(popperData, this._element)
     }
 
-    return offset
+    if (typeof this._config.offset === 'string') {
+      return this._config.offset.split(',').map(value => Number.parseInt(value, 10))
+    }
+
+    return this._config.offset
   }
 
   _getPopperConfig() {
+    const boundary = this._config.boundary === 'scrollParent' ? 'clippingParents' : this._config.boundary
     const popperConfig = {
       placement: this._getPlacement(),
-      modifiers: {
-        offset: this._getOffset(),
-        flip: {
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: this._getOffset()
+          }
+        },
+        {
+          name: 'flip',
           enabled: this._config.flip
         },
-        preventOverflow: {
-          boundariesElement: this._config.boundary
+        {
+          name: 'preventOverflow',
+          options: {
+            boundary
+          }
+        },
+        {
+          name: 'applyStyles',
+          enabled: this._config.display !== 'static'
         }
-      }
+      ]
     }
 
-    // Disable Popper if we have a static display
-    if (this._config.display === 'static') {
-      popperConfig.modifiers.applyStyle = {
-        enabled: false
-      }
-    }
+    const customConfig = typeof this._config.popperConfig === 'function' ?
+      this._config.popperConfig(popperConfig) :
+      this._config.popperConfig
 
     return {
       ...popperConfig,
-      ...this._config.popperConfig
+      ...customConfig
     }
   }
 
@@ -349,7 +353,7 @@ class Dropdown {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 
@@ -360,7 +364,7 @@ class Dropdown {
 
   static _clearMenus(event) {
     if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH ||
-      event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
+    	event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
       return
     }
 
@@ -387,8 +391,8 @@ class Dropdown {
       }
 
       if (event && (event.type === 'click' &&
-          /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) &&
-          $.contains(parent, event.target)) {
+      	/input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) &&
+      	$.contains(parent, event.target)) {
         continue
       }
 
@@ -440,7 +444,8 @@ class Dropdown {
     if (/input|textarea/i.test(event.target.tagName) ?
       event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE &&
       (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE ||
-        $(event.target).closest(SELECTOR_MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+      	$(event.target).closest(SELECTOR_MENU).length) :
+      !REGEXP_KEYDOWN.test(event.which)) {
       return
     }
 

@@ -98,7 +98,7 @@ export function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
     return sanitizeFn(unsafeHtml)
   }
 
-  const domParser = new window.DOMParser()
+  const domParser = new globalThis.DOMParser()
   const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html')
   const whitelistKeys = Object.keys(whiteList)
   const elements = [].slice.call(createdDocument.body.querySelectorAll('*'))

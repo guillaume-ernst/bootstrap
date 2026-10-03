@@ -32,9 +32,9 @@ const Default = {
   trigger: 'click',
   content: '',
   template: '<div class="popover" role="tooltip">' +
-              '<div class="arrow"></div>' +
-              '<h3 class="popover-header"></h3>' +
-              '<div class="popover-body"></div></div>'
+    '<div class="arrow"></div>' +
+    '<h3 class="popover-header"></h3>' +
+    '<div class="popover-body"></div></div>'
 }
 
 const DefaultType = {
@@ -99,7 +99,7 @@ class Popover extends Tooltip {
   }
 
   getTipElement() {
-    this.tip = this.tip || $(this.config.template)[0]
+    this.tip ||= $(this.config.template)[0]
     return this.tip
   }
 
@@ -148,7 +148,7 @@ class Popover extends Tooltip {
       }
 
       if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`)
         }
 

@@ -17,7 +17,7 @@ const MILLISECONDS_MULTIPLIER = 1000
 
 // Shoutout AngusCroll (https://goo.gl/pxwQGp)
 function toType(obj) {
-  if (obj === null || typeof obj === 'undefined') {
+  if (obj === null || obj === undefined) {
     return `${obj}`
   }
 
@@ -57,6 +57,20 @@ function transitionEndEmulator(duration) {
 function setTransitionEndSupport() {
   $.fn.emulateTransitionEnd = transitionEndEmulator
   $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent()
+}
+
+function parseTimeValue(value) {
+  if (!value) {
+    return 0
+  }
+
+  const floatValue = parseFloat(value)
+  if (Number.isNaN(floatValue)) {
+    return 0
+  }
+
+  // Return milliseconds directly; convert seconds.
+  return value.trim().endsWith('ms') ? floatValue : floatValue * MILLISECONDS_MULTIPLIER
 }
 
 /**
@@ -99,6 +113,12 @@ const Util = {
     let transitionDuration = $(element).css('transition-duration')
     let transitionDelay = $(element).css('transition-delay')
 
+    // jsdom does not always resolve the CSS `transition` shorthand or
+    // transition-* longhands from inline styles; fall back to inline style.
+    transitionDuration ||= element.style.transitionDuration || ''
+
+    transitionDelay ||= element.style.transitionDelay || ''
+
     const floatTransitionDuration = parseFloat(transitionDuration)
     const floatTransitionDelay = parseFloat(transitionDelay)
 
@@ -111,7 +131,7 @@ const Util = {
     transitionDuration = transitionDuration.split(',')[0]
     transitionDelay = transitionDelay.split(',')[0]
 
-    return (parseFloat(transitionDuration) + parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER
+    return parseTimeValue(transitionDuration) + parseTimeValue(transitionDelay)
   },
 
   reflow(element) {
@@ -132,17 +152,17 @@ const Util = {
 
   typeCheckConfig(componentName, config, configTypes) {
     for (const property in configTypes) {
-      if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+      if (Object.hasOwn(configTypes, property)) {
         const expectedTypes = configTypes[property]
         const value = config[property]
         const valueType = value && Util.isElement(value) ?
-          'element' : toType(value)
+          'element' :
+          toType(value)
 
         if (!new RegExp(expectedTypes).test(valueType)) {
-          throw new Error(
-            `${componentName.toUpperCase()}: ` +
-            `Option "${property}" provided type "${valueType}" ` +
-            `but expected type "${expectedTypes}".`)
+          throw new Error(`${componentName.toUpperCase()}: ` +
+          	`Option "${property}" provided type "${valueType}" ` +
+          	`but expected type "${expectedTypes}".`)
         }
       }
     }
@@ -172,19 +192,17 @@ const Util = {
   },
 
   jQueryDetection() {
-    if (typeof $ === 'undefined') {
+    if ($ === undefined) {
       throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.')
     }
 
     const version = $.fn.jquery.split(' ')[0].split('.')
-    const minMajor = 1
-    const ltMajor = 2
-    const minMinor = 9
-    const minPatch = 1
-    const maxMajor = 4
+    const minMajor = 3
+    const minMinor = 5
+    const minPatch = 0
 
-    if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-      throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0')
+    if (version[0] < minMajor || version[0] === minMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch) {
+      throw new Error('Bootstrap\'s JavaScript requires at least jQuery v3.5.0')
     }
   }
 }

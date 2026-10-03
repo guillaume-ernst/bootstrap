@@ -24,7 +24,7 @@ const CLASS_NAME_FOCUS = 'focus'
 
 const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`
 const EVENT_FOCUS_BLUR_DATA_API = `focus${EVENT_KEY}${DATA_API_KEY} ` +
-                          `blur${EVENT_KEY}${DATA_API_KEY}`
+	`blur${EVENT_KEY}${DATA_API_KEY}`
 const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
 
 const SELECTOR_DATA_TOGGLE_CARROT = '[data-toggle^="button"]'
@@ -157,7 +157,7 @@ $(document)
     $(button).toggleClass(CLASS_NAME_FOCUS, /^focus(in)?$/.test(event.type))
   })
 
-$(window).on(EVENT_LOAD_DATA_API, () => {
+$(globalThis).on(EVENT_LOAD_DATA_API, () => {
   // ensure correct active class is set to match the controls' actual values/states
 
   // find all checkboxes/readio buttons inside data-toggle groups
