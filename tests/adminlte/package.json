@@ -1,0 +1,14 @@
+{
+  "name": "adminlte-compat-fixture",
+  "private": true,
+  "description": "Smoke test: AdminLTE 3 against the @gernst/bootstrap fork",
+  "dependencies": {
+    "admin-lte": "^3.2.0",
+    "bootstrap": "file:../..",
+    "jquery": "^4.0.0",
+    "bootstrap-orig": "npm:bootstrap@4.6.2"
+  },
+  "devDependencies": {
+    "sass": "^1.79.0"
+  }
+}

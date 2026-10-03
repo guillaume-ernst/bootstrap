@@ -38,3 +38,9 @@ jobs:
 
       - name: Check Sass module parity
         run: npm run css-module-check
+
+      - name: Install AdminLTE fixture
+        run: npm --prefix tests/adminlte ci --ignore-scripts --legacy-peer-deps
+
+      - name: Check AdminLTE Sass compatibility
+        run: npm run adminlte-check

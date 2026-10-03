@@ -42,6 +42,8 @@ Thumbs.db
 /node_modules/
 .tmp-golden/
 .tmp-module/
+.tmp-adminlte/
+/tests/adminlte/node_modules/
 
 # Test output
 /test-results/

@@ -71,6 +71,7 @@
     "css-prefix": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\" \"!dist/css/*.min.css\"",
     "css-golden-check": "node build/css-golden-check.js",
     "css-module-check": "node build/css-module-check.js",
+    "adminlte-check": "node build/adminlte-check.js",
     "js": "npm-run-all2 --aggregate-output --parallel js-compile js-minify",
     "js-compile": "npm-run-all2 --aggregate-output --parallel js-compile-*",
     "js-compile-standalone": "rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap",

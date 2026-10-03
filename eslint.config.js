@@ -116,6 +116,14 @@ export default [
     }
   },
   {
+    files: ['tests/e2e/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.browser
+      }
+    }
+  },
+  {
     files: ['js/tests/**/*.js', 'tests/**/*.js'],
     languageOptions: {
       globals: {
