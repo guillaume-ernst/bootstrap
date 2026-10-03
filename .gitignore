@@ -43,6 +43,7 @@ Thumbs.db
 .tmp-golden/
 .tmp-module/
 .tmp-adminlte/
+/dist/css/module/
 /tests/adminlte/node_modules/
 
 # Test output
