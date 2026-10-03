@@ -1,0 +1,16 @@
+# @gernst/bootstrap — maintained Bootstrap forks
+
+> Two maintained Bootstrap forks modernized for 2026-era stacks, published as
+> `@gernst/bootstrap` on npm.
+
+## Versions
+
+- `v4-modern`: fork of Bootstrap 4.6.2 — jQuery 3.5+/4, Popper 2, Dart Sass 2/3, works with
+  AdminLTE 3. Demo: https://guillaume-ernst.github.io/bootstrap/demo/v4/
+- `v5-modern`: fork of Bootstrap 5.3.8 — vanilla JS, Popper 2, deprecation-free Sass with a
+  parallel @use/@forward module tree. Demo: https://guillaume-ernst.github.io/bootstrap/demo/v5/
+
+## Docs
+
+- Repository: https://github.com/guillaume-ernst/bootstrap
+- AGENTS.md on each branch documents the migration from the `bootstrap` package step by step.
