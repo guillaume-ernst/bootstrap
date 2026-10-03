@@ -19,6 +19,20 @@
 
 Bootstrap 4.x is no longer actively maintained upstream, but it remains widely used (e.g. AdminLTE 3). This fork keeps a version compatible with 2026-era toolchains without adding new features.
 
+## Why upgrade
+
+Bootstrap 4 survives 2026-era stacks: instead of forcing a costly migration to v5, the fork makes the existing dependency compatible with today's tooling.
+
+- **Dart Sass 2/3 ready** — zero warnings except `import` (which can be silenced), `slash-div` resolved, global functions migrated to `sass:*` modules. When Dart Sass 3 removes `@import`, the `scss/module/` tree (`@use`/`@forward`) is already here, so you can migrate today instead of in an emergency tomorrow.
+- **jQuery 4** — the `<4` version bound is lifted, and Popper v1 options are translated to Popper 2. No more peer dependency conflicts with modern plugins.
+- **Total drop-in** — an npm alias is all it takes: byte-identical CSS to 4.6.2 verified by golden tests, webpack `~bootstrap` imports, `$.fn.*` plugins and `data-*` attributes all unchanged. Nothing to rewrite. AdminLTE 3 is verified in CI on all three browsers.
+- **ESM + `exports`** — native `import`, `sass`/`style` fields, no more UMD transpilation.
+- **Incremental change** — the `@use` migration can be done file by file: `scss/` and `scss/module/` coexist in the same package.
+- **Real confidence** — 370 unit tests, 33 end-to-end tests across Chromium/Firefox/WebKit, and automated CSS parity checks. This is not a blind fork.
+- **Node.js 22 toolchain** — ESLint 9, Vitest, Playwright, bundlewatch, Dependabot and npm releases with provenance: a solid base to keep patching.
+
+In short: **keep Bootstrap 4 exactly as it is, but it compiles, runs and installs like a 2026 library** — without paying the cost of a major migration to v5.
+
 ## Installation
 
 ```bash
