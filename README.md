@@ -11,6 +11,8 @@
   <br>
   All releases stay on major version 4 to avoid any confusion with Bootstrap 5.
   <br>
+  <em>Unofficial community fork — not affiliated with the Bootstrap team.</em>
+  <br>
   <br>
   <a href="https://github.com/guillaume-ernst/bootstrap-modernized/issues">Report an issue</a>
 </p>
