@@ -1,44 +1,128 @@
 <!doctype html>
-<html lang="en" data-bs-theme="light">
+<html lang="en"
+      data-bs-theme="light">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
   <title>@gernst/bootstrap — live demos</title>
-  <link rel="stylesheet" href="v5/dist/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="v5/dist/css/bootstrap.min.css">
 </head>
-<body>
-  <main class="container py-5">
-    <h1 class="display-5 fw-bold">@gernst/bootstrap</h1>
-    <p class="lead">Maintained Bootstrap forks, modernized for 2026-era stacks.</p>
 
-    <div class="row g-4 mt-4">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand"
+         href="./">@gernst/bootstrap</a>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link"
+             href="v4/">v4 demo</a></li>
+        <li class="nav-item"><a class="nav-link"
+             href="v5/">v5 demo</a></li>
+        <li class="nav-item">
+          <a class="nav-link"
+             href="https://github.com/guillaume-ernst/bootstrap">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="text-center mb-5">
+      <h1 class="display-5 fw-bold">@gernst/bootstrap</h1>
+      <p class="lead text-muted">
+        Maintained Bootstrap forks, modernized for 2026-era stacks.
+        The pages below run each branch's real <code>dist/</code> build.
+      </p>
+    </div>
+
+    <div class="row g-4">
       <div class="col-md-6">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm border-primary">
+          <div class="card-header bg-primary text-white">Major version 4 — <code>v4-modern</code></div>
           <div class="card-body">
-            <h2 class="card-title h4">Bootstrap 4 — v4-modern</h2>
-            <p class="card-text">Fork of 4.6.2: Dart Sass 2/3, jQuery 4, Popper 2. Drop-in for
-              AdminLTE 3 and legacy v4 projects.</p>
-            <a class="btn btn-primary" href="v4/">Open the v4 demo</a>
+            <h2 class="card-title h4">Bootstrap 4, kept alive</h2>
+            <ul class="mb-3">
+              <li>Fork of <strong>4.6.2</strong> — stays on major 4</li>
+              <li>jQuery <strong>3.5+ and 4.x</strong></li>
+              <li>Popper v1 replaced by <strong>@popperjs/core v2</strong></li>
+              <li>Dart Sass 2/3 clean, parallel <code>@use</code> tree</li>
+              <li>Drop-in for <strong>AdminLTE 3</strong> (verified in CI)</li>
+            </ul>
+            <a class="btn btn-primary"
+               href="v4/">Open the v4 demo</a>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm border-success">
+          <div class="card-header bg-success text-white">Major version 5 — <code>v5-modern</code></div>
           <div class="card-body">
-            <h2 class="card-title h4">Bootstrap 5 — v5-modern</h2>
-            <p class="card-text">Fork of 5.3.8: deprecation-free Sass, <code>scss/module/</code>
-              <code>@use</code>/<code>@forward</code> tree, vanilla JS, Popper 2.</p>
-            <a class="btn btn-primary" href="v5/">Open the v5 demo</a>
+            <h2 class="card-title h4">Bootstrap 5, future-proofed</h2>
+            <ul class="mb-3">
+              <li>Fork of <strong>5.3.8</strong> — stays on major 5</li>
+              <li>Vanilla JS, <strong>no jQuery</strong> required</li>
+              <li>Popper 2 via <code>@popperjs/core</code></li>
+              <li><code>scss/module/</code> — <code>@use</code>/<code>@forward</code> tree with identical CSS output
+              </li>
+              <li>Deprecation-free Sass for Dart Sass 2/3</li>
+            </ul>
+            <a class="btn btn-success"
+               href="v5/">Open the v5 demo</a>
           </div>
         </div>
       </div>
     </div>
 
-    <p class="text-muted mt-5">
-      Assets on these pages are built straight from each branch's committed
-      <code>dist/</code> output.
+    <h3 class="mt-5 mb-3">Side-by-side</h3>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th></th>
+            <th>v4-modern</th>
+            <th>v5-modern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Upstream base</td>
+            <td>4.6.2</td>
+            <td>5.3.8</td>
+          </tr>
+          <tr>
+            <td>JavaScript</td>
+            <td>jQuery 3.5+ / 4</td>
+            <td>Vanilla</td>
+          </tr>
+          <tr>
+            <td>Positioning</td>
+            <td colspan="2">@popperjs/core v2</td>
+          </tr>
+          <tr>
+            <td>Sass</td>
+            <td colspan="2">Dart Sass clean + parallel <code>scss/module/</code> tree</td>
+          </tr>
+          <tr>
+            <td>Toolchain</td>
+            <td colspan="2">Node 22, ESLint 9, Vitest, Playwright</td>
+          </tr>
+          <tr>
+            <td>Target users</td>
+            <td>Legacy v4 projects, AdminLTE 3</td>
+            <td>Modern v5 projects</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-muted mt-4">
+      All CSS/JS on these pages is served from the committed <code>dist/</code> output of each
+      branch — nothing comes from a CDN build of upstream Bootstrap.
     </p>
   </main>
-  <script src="v5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -1,83 +1,249 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
   <title>@gernst/bootstrap 4 — live demo</title>
-  <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="dist/css/bootstrap.min.css">
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="../">@gernst/bootstrap 4</a>
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="demoDropdown" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="demoDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-          </div>
-        </li>
-      </ul>
+      <a class="navbar-brand"
+         href="../">@gernst/bootstrap 4</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#demoNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+           id="demoNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="demoDropdown"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu"
+                 aria-labelledby="demoDropdown">
+              <a class="dropdown-item"
+                 href="#">Action</a>
+              <a class="dropdown-item"
+                 href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item"
+                 href="#">Separated link</a>
+            </div>
+          </li>
+          <li class="nav-item"><a class="nav-link"
+               href="#components">Components</a></li>
+        </ul>
+        <a class="btn btn-outline-info btn-sm"
+           href="../v5/">Switch to the v5 demo &rarr;</a>
+      </div>
     </div>
   </nav>
 
-  <main class="container py-4">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      This page runs the fork's <code>dist/</code> build with jQuery 4 and Popper 2.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <div class="jumbotron jumbotron-fluid bg-primary text-white">
+    <div class="container">
+      <h1 class="display-4">Bootstrap 4, still alive</h1>
+      <p class="lead">This page runs the fork's <code>dist/</code> build with
+        <strong>jQuery 4</strong> and <strong>Popper 2</strong> — the same byte-identical CSS
+        as upstream 4.6.2.
+      </p>
+    </div>
+  </div>
+
+  <main class="container py-4"
+        id="components">
+    <div class="alert alert-warning alert-dismissible fade show"
+         role="alert">
+      <strong>Dismissible alert</strong> — powered by the jQuery plugin API.
+      <button type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
 
     <div class="row">
       <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Modal</h5>
             <p class="card-text">jQuery plugin API, unchanged.</p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#demoModal">
+            <button type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#demoModal">
               Open modal
             </button>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Tooltip &amp; Popover</h5>
             <p class="card-text">Popper 2 under the hood.</p>
-            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top"
+            <button type="button"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    data-placement="top"
                     title="Tooltip via Popper 2">Hover me</button>
-            <button type="button" class="btn btn-info" data-toggle="popover" data-placement="right"
-                    title="Popover" data-content="Popover via Popper 2">Click me</button>
+            <button type="button"
+                    class="btn btn-info"
+                    data-toggle="popover"
+                    data-placement="right"
+                    title="Popover"
+                    data-content="Popover via Popper 2">Click me</button>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Collapse</h5>
             <p class="card-text">Classic v4 toggles.</p>
-            <button class="btn btn-outline-primary" data-toggle="collapse" data-target="#demoCollapse">
+            <button class="btn btn-outline-primary"
+                    data-toggle="collapse"
+                    data-target="#demoCollapse">
               Toggle content
             </button>
-            <div class="collapse mt-3" id="demoCollapse">
+            <div class="collapse mt-3"
+                 id="demoCollapse">
               <div class="card card-body">Collapsible content works.</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Carousel</h5>
+            <div id="demoCarousel"
+                 class="carousel slide"
+                 data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#demoCarousel"
+                    data-slide-to="0"
+                    class="active"></li>
+                <li data-target="#demoCarousel"
+                    data-slide-to="1"></li>
+                <li data-target="#demoCarousel"
+                    data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner rounded">
+                <div class="carousel-item active bg-primary text-white text-center py-5">Slide 1</div>
+                <div class="carousel-item bg-secondary text-white text-center py-5">Slide 2</div>
+                <div class="carousel-item bg-dark text-white text-center py-5">Slide 3</div>
+              </div>
+              <a class="carousel-control-prev"
+                 href="#demoCarousel"
+                 role="button"
+                 data-slide="prev">
+                <span class="carousel-control-prev-icon"
+                      aria-hidden="true"></span>
+              </a>
+              <a class="carousel-control-next"
+                 href="#demoCarousel"
+                 role="button"
+                 data-slide="next">
+                <span class="carousel-control-next-icon"
+                      aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Buttons, badges &amp; progress</h5>
+            <p>
+              <button class="btn btn-primary">Primary</button>
+              <button class="btn btn-outline-success">Success</button>
+              <button class="btn btn-danger btn-sm">Danger</button>
+              <span class="badge badge-pill badge-info">Badge</span>
+            </p>
+            <div class="progress mb-2">
+              <div class="progress-bar"
+                   role="progressbar"
+                   style="width: 65%"
+                   aria-valuenow="65">65%</div>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                   role="progressbar"
+                   style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Form controls</h5>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="demoEmail">Email</label>
+              <input type="email"
+                     class="form-control"
+                     id="demoEmail"
+                     placeholder="name@example.com">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="demoSelect">Select</label>
+              <select class="form-control"
+                      id="demoSelect">
+                <option>Option A</option>
+                <option>Option B</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 d-flex align-items-end">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox"
+                       class="custom-control-input"
+                       id="demoCheck"
+                       checked>
+                <label class="custom-control-label"
+                       for="demoCheck">Checked</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
-  <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade"
+       id="demoModal"
+       tabindex="-1"
+       role="dialog"
+       aria-hidden="true">
+    <div class="modal-dialog"
+         role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Bootstrap 4, jQuery 4</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -95,4 +261,5 @@
     })
   </script>
 </body>
+
 </html>

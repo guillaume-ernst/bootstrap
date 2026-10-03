@@ -1,90 +1,280 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"
+      data-bs-theme="light">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
   <title>@gernst/bootstrap 5 — live demo</title>
-  <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="dist/css/bootstrap.min.css">
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="../">@gernst/bootstrap 5</a>
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="demoDropdown" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-          <ul class="dropdown-menu" aria-labelledby="demoDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-          </ul>
-        </li>
-      </ul>
+      <a class="navbar-brand"
+         href="../">@gernst/bootstrap 5</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#demoNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+           id="demoNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="demoDropdown"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu"
+                aria-labelledby="demoDropdown">
+              <li><a class="dropdown-item"
+                   href="#">Action</a></li>
+              <li><a class="dropdown-item"
+                   href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item"
+                   href="#">Separated link</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link"
+               href="#components">Components</a></li>
+        </ul>
+        <button class="btn btn-outline-info btn-sm me-2"
+                id="themeToggle">Toggle dark mode</button>
+        <a class="btn btn-outline-light btn-sm"
+           href="../v4/">Switch to the v4 demo &rarr;</a>
+      </div>
     </div>
   </nav>
 
-  <main class="container py-4">
-    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-      This page runs the fork's <code>dist/</code> build — vanilla JS, Popper 2, no jQuery.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="p-5 mb-4 bg-primary text-white">
+    <div class="container">
+      <h1 class="display-4">Bootstrap 5, future-proofed</h1>
+      <p class="lead">This page runs the fork's <code>dist/</code> build —
+        <strong>vanilla JS</strong>, <strong>Popper 2</strong>, no jQuery. Compiled from the
+        <code>scss/module/</code> <code>@use</code> tree.
+      </p>
+    </div>
+  </div>
+
+  <main class="container py-4"
+        id="components">
+    <div class="alert alert-primary alert-dismissible fade show"
+         role="alert">
+      <strong>Dismissible alert</strong> — data attributes only, zero JavaScript calls needed.
+      <button type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"></button>
     </div>
 
     <div class="row g-3">
       <div class="col-md-4">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Modal</h5>
             <p class="card-text">Vanilla API, unchanged.</p>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+            <button type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
                     data-bs-target="#demoModal">Open modal</button>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Tooltip &amp; Popover</h5>
             <p class="card-text">Popper 2 under the hood.</p>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Tooltip via Popper 2">Hover me</button>
-            <button type="button" class="btn btn-info" data-bs-toggle="popover"
-                    data-bs-placement="right" title="Popover"
+            <button type="button"
+                    class="btn btn-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Tooltip via Popper 2">Hover me</button>
+            <button type="button"
+                    class="btn btn-info"
+                    data-bs-toggle="popover"
+                    data-bs-placement="right"
+                    title="Popover"
                     data-bs-content="Popover via Popper 2">Click me</button>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Offcanvas &amp; Toast</h5>
+            <p class="card-text">v5-only components.</p>
+            <button class="btn btn-outline-primary"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#demoOffcanvas">Offcanvas</button>
+            <button class="btn btn-outline-secondary"
+                    id="toastBtn">Show toast</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+      <div class="col-md-6">
+        <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Accordion</h5>
-            <div class="accordion" id="demoAccordion">
+            <div class="accordion"
+                 id="demoAccordion">
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button"
-                          data-bs-toggle="collapse" data-bs-target="#demoItem">
-                    Toggle section
-                  </button>
+                  <button class="accordion-button"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accItem1">Sass modules</button>
                 </h2>
-                <div id="demoItem" class="accordion-collapse collapse" data-bs-parent="#demoAccordion">
-                  <div class="accordion-body">Accordion works.</div>
+                <div id="accItem1"
+                     class="accordion-collapse collapse show"
+                     data-bs-parent="#demoAccordion">
+                  <div class="accordion-body"><code>@use</code>/<code>@forward</code>, namespaced
+                    members, <code>with()</code> configuration.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accItem2">Identical CSS</button>
+                </h2>
+                <div id="accItem2"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#demoAccordion">
+                  <div class="accordion-body">The module tree emits the same normalized CSS as the
+                    legacy <code>@import</code> tree — verified in CI.</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Buttons, badges &amp; progress</h5>
+            <p>
+              <button class="btn btn-primary">Primary</button>
+              <button class="btn btn-outline-success">Success</button>
+              <button class="btn btn-danger btn-sm">Danger</button>
+              <span class="badge rounded-pill text-bg-info">Badge</span>
+            </p>
+            <div class="progress mb-2"
+                 role="progressbar"
+                 aria-valuenow="65">
+              <div class="progress-bar"
+                   style="width: 65%">65%</div>
+            </div>
+            <div class="progress"
+                 role="progressbar"
+                 aria-valuenow="40">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                   style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title">Form controls &amp; floating labels</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="email"
+                     class="form-control"
+                     id="demoEmail"
+                     placeholder="name@example.com">
+              <label for="demoEmail">Email address</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select"
+                    aria-label="Select">
+              <option selected>Option A</option>
+              <option>Option B</option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input"
+                     type="checkbox"
+                     id="demoSwitch"
+                     checked>
+              <label class="form-check-label"
+                     for="demoSwitch">Switched on</label>
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="demoRange"
+                   class="form-label">Range</label>
+            <input type="range"
+                   class="form-range"
+                   id="demoRange">
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <div class="modal fade" id="demoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade"
+       id="demoModal"
+       tabindex="-1"
+       aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Bootstrap 5, vanilla JS</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
         </div>
         <div class="modal-body">Modal powered by @gernst/bootstrap.</div>
       </div>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-start"
+       tabindex="-1"
+       id="demoOffcanvas">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Offcanvas</h5>
+      <button type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">Slide-in panel, v5 only.</div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="demoToast"
+         class="toast"
+         role="alert">
+      <div class="toast-header">
+        <strong class="me-auto">Toast</strong>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Hello from @gernst/bootstrap 5.</div>
     </div>
   </div>
 
@@ -94,6 +284,14 @@
       .forEach(el => new bootstrap.Tooltip(el))
     document.querySelectorAll('[data-bs-toggle="popover"]')
       .forEach(el => new bootstrap.Popover(el))
+    document.getElementById('toastBtn')
+      .addEventListener('click', () => bootstrap.Toast.getOrCreateInstance('#demoToast').show())
+    document.getElementById('themeToggle')
+      .addEventListener('click', () => {
+        const html = document.documentElement
+        html.dataset.bsTheme = html.dataset.bsTheme === 'dark' ? 'light' : 'dark'
+      })
   </script>
 </body>
+
 </html>
