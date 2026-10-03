@@ -1,18 +1,26 @@
 {
   "name": "@gernst/bootstrap",
-  "description": "Maintained fork of Bootstrap 5, modernized for Dart Sass 2 and modern toolchains (vanilla JS).",
+  "description": "Maintained fork of Bootstrap 5 (v5.3.8 base). Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree, vanilla JS with Popper 2, modern Node.js toolchain.",
   "version": "5.4.0-dev",
   "config": {
     "version_short": "5.4"
   },
   "keywords": [
-    "css",
+    "bootstrap",
+    "bootstrap5",
+    "bootstrap-5",
+    "bootstrap-fork",
+    "css-framework",
     "sass",
-    "mobile-first",
+    "scss",
+    "dart-sass",
+    "sass-modules",
+    "vanilla-js",
+    "popper",
     "responsive",
     "front-end",
-    "framework",
-    "web"
+    "ui-framework",
+    "maintained"
   ],
   "homepage": "https://github.com/guillaume-ernst/bootstrap#readme",
   "author": "Guillaume Ernst",
