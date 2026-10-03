@@ -10,6 +10,10 @@ env:
   FORCE_COLOR: 2
   NODE: 22
 
+permissions:
+  checks: write
+  contents: read
+
 jobs:
   js:
     runs-on: ubuntu-latest
