@@ -1,0 +1,56 @@
+@use "../variables";
+@use "../functions";
+// stylelint-disable declaration-no-important
+// All-caps `RGBA()` function used because of this Sass bug: https://github.com/sass/node-sass/issues/2251
+@each $color, $value in variables.$theme-colors {
+  .link-#{$color} {
+    @if variables.$enable-important-utilities {
+      color: RGBA(var(--#{variables.$prefix}#{$color}-rgb), var(--#{variables.$prefix}link-opacity, 1)) !important;
+      text-decoration-color: RGBA(var(--#{variables.$prefix}#{$color}-rgb), var(--#{variables.$prefix}link-underline-opacity, 1)) !important;
+    } @else {
+      color: RGBA(var(--#{variables.$prefix}#{$color}-rgb), var(--#{variables.$prefix}link-opacity, 1));
+      text-decoration-color: RGBA(var(--#{variables.$prefix}#{$color}-rgb), var(--#{variables.$prefix}link-underline-opacity, 1));
+    }
+
+    @if variables.$link-shade-percentage != 0 {
+      &:hover,
+      &:focus {
+        $hover-color: functions.shade-color($value, variables.$link-shade-percentage);
+        @if variables.color-contrast($value) != variables.$color-contrast-light {
+          $hover-color: functions.tint-color($value, variables.$link-shade-percentage);
+        }
+        @if variables.$enable-important-utilities {
+          color: RGBA(#{functions.to-rgb($hover-color)}, var(--#{variables.$prefix}link-opacity, 1)) !important;
+          text-decoration-color: RGBA(functions.to-rgb($hover-color), var(--#{variables.$prefix}link-underline-opacity, 1)) !important;
+        } @else {
+          color: RGBA(#{functions.to-rgb($hover-color)}, var(--#{variables.$prefix}link-opacity, 1));
+          text-decoration-color: RGBA(functions.to-rgb($hover-color), var(--#{variables.$prefix}link-underline-opacity, 1));
+        }
+      }
+    }
+  }
+}
+
+// One-off special link helper as a bridge until v6
+.link-body-emphasis {
+  @if variables.$enable-important-utilities {
+    color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-opacity, 1)) !important;
+    text-decoration-color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-underline-opacity, 1)) !important;
+  } @else {
+    color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-opacity, 1));
+    text-decoration-color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-underline-opacity, 1));
+  }
+
+  @if variables.$link-shade-percentage != 0 {
+    &:hover,
+    &:focus {
+      @if variables.$enable-important-utilities {
+        color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-opacity, .75)) !important;
+        text-decoration-color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-underline-opacity, .75)) !important;
+      } @else {
+        color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-opacity, .75));
+        text-decoration-color: RGBA(var(--#{variables.$prefix}emphasis-color-rgb), var(--#{variables.$prefix}link-underline-opacity, .75));
+      }
+    }
+  }
+}

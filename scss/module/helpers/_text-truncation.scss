@@ -1,0 +1,8 @@
+@use "../mixins";
+//
+// Text truncation
+//
+
+.text-truncate {
+  @include mixins.text-truncate();
+}

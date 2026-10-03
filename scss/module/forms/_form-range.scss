@@ -1,0 +1,94 @@
+@use "../variables";
+@use "../functions";
+@use "../mixins";
+// Range
+//
+// Style range inputs the same across browsers. Vendor-specific rules for pseudo
+// elements cannot be mixed. As such, there are no shared styles for focus or
+// active states on prefixed selectors.
+
+.form-range {
+  width: 100%;
+  height: functions.add(variables.$form-range-thumb-height, variables.$form-range-thumb-focus-box-shadow-width * 2);
+  padding: 0; // Need to reset padding
+  appearance: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: 0;
+
+    // Pseudo-elements must be split across multiple rulesets to have an effect.
+    // No mixins.box-shadow() mixin for focus accessibility.
+    &::-webkit-slider-thumb { box-shadow: variables.$form-range-thumb-focus-box-shadow; }
+    &::-moz-range-thumb     { box-shadow: variables.$form-range-thumb-focus-box-shadow; }
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::-webkit-slider-thumb {
+    width: variables.$form-range-thumb-width;
+    height: variables.$form-range-thumb-height;
+    margin-top: (variables.$form-range-track-height - variables.$form-range-thumb-height) * .5; // Webkit specific
+    appearance: none;
+    @include mixins.gradient-bg(variables.$form-range-thumb-bg);
+    border: variables.$form-range-thumb-border;
+    @include mixins.border-radius(variables.$form-range-thumb-border-radius);
+    @include mixins.box-shadow(variables.$form-range-thumb-box-shadow);
+    @include mixins.transition(variables.$form-range-thumb-transition);
+
+    &:active {
+      @include mixins.gradient-bg(variables.$form-range-thumb-active-bg);
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: variables.$form-range-track-width;
+    height: variables.$form-range-track-height;
+    color: transparent; // Why?
+    cursor: variables.$form-range-track-cursor;
+    background-color: variables.$form-range-track-bg;
+    border-color: transparent;
+    @include mixins.border-radius(variables.$form-range-track-border-radius);
+    @include mixins.box-shadow(variables.$form-range-track-box-shadow);
+  }
+
+  &::-moz-range-thumb {
+    width: variables.$form-range-thumb-width;
+    height: variables.$form-range-thumb-height;
+    appearance: none;
+    @include mixins.gradient-bg(variables.$form-range-thumb-bg);
+    border: variables.$form-range-thumb-border;
+    @include mixins.border-radius(variables.$form-range-thumb-border-radius);
+    @include mixins.box-shadow(variables.$form-range-thumb-box-shadow);
+    @include mixins.transition(variables.$form-range-thumb-transition);
+
+    &:active {
+      @include mixins.gradient-bg(variables.$form-range-thumb-active-bg);
+    }
+  }
+
+  &::-moz-range-track {
+    width: variables.$form-range-track-width;
+    height: variables.$form-range-track-height;
+    color: transparent;
+    cursor: variables.$form-range-track-cursor;
+    background-color: variables.$form-range-track-bg;
+    border-color: transparent; // Firefox specific?
+    @include mixins.border-radius(variables.$form-range-track-border-radius);
+    @include mixins.box-shadow(variables.$form-range-track-box-shadow);
+  }
+
+  &:disabled {
+    pointer-events: none;
+
+    &::-webkit-slider-thumb {
+      background-color: variables.$form-range-thumb-disabled-bg;
+    }
+
+    &::-moz-range-thumb {
+      background-color: variables.$form-range-thumb-disabled-bg;
+    }
+  }
+}

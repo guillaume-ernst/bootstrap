@@ -1,0 +1,13 @@
+@use "../variables";
+@use "../mixins";
+//
+// Form text
+//
+
+.form-text {
+  margin-top: variables.$form-text-margin-top;
+  @include mixins.font-size(variables.$form-text-font-size);
+  font-style: variables.$form-text-font-style;
+  font-weight: variables.$form-text-font-weight;
+  color: variables.$form-text-color;
+}
