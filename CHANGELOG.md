@@ -10,7 +10,13 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/lang/fr/spec/v2
 ### Ajout
 
 - Fork de Bootstrap 4.6.2 sous le nom de paquet `@gernst/bootstrap`.
-- Changelog et guide de migration.
+- Toolchain Node.js 22, Dart Sass, Rollup 4, Vitest et Playwright.
+- Tests de golden CSS, de surcharge Sass (`@import` et `@use ... with`) et squelette E2E.
+
+### Modifié
+
+- Sass : migration des fonctions globales (`map-get`, `mix`, `lighten`, etc.) vers les modules `sass:*`.
+- Suppression des avertissements Dart Sass `global-builtin`, `color-functions`, `if-function`, `slash-div` et `abs-percent` ; seule la dépréciation `import` demeure et peut être silençable.
 
 ## [4.6.2] - 2022-07-19
 

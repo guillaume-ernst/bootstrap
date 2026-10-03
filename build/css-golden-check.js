@@ -32,7 +32,7 @@ function run() {
   fs.mkdirSync(OUT_DIR, { recursive: true })
 
   // Compile with deprecated @import/global-builtin silenced; we only care about precision-related diff.
-  const sassFlags = '--style=expanded --source-map --embed-sources --silence-deprecation=import,global-builtin,color-functions,if-function,slash-div,abs-percent,mixed-decls'
+  const sassFlags = '--style=expanded --source-map --embed-sources --silence-deprecation=import,global-builtin,color-functions,if-function,slash-div,abs-percent'
   execSync(`npx sass ${sassFlags} --load-path=${path.join(ROOT, 'scss')} ${path.join(ROOT, 'scss/bootstrap.scss')}:${path.join(OUT_DIR, 'bootstrap.css')} ${path.join(ROOT, 'scss/bootstrap-grid.scss')}:${path.join(OUT_DIR, 'bootstrap-grid.css')} ${path.join(ROOT, 'scss/bootstrap-reboot.scss')}:${path.join(OUT_DIR, 'bootstrap-reboot.css')}`, { cwd: ROOT, stdio: 'inherit' })
 
   let failed = false

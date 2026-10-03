@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:math";
 // Credit: Nicolas Gallagher and SUIT CSS.
 
 .embed-responsive {
@@ -28,12 +30,12 @@
 }
 
 @each $embed-responsive-aspect-ratio in $embed-responsive-aspect-ratios {
-  $embed-responsive-aspect-ratio-x: nth($embed-responsive-aspect-ratio, 1);
-  $embed-responsive-aspect-ratio-y: nth($embed-responsive-aspect-ratio, 2);
+  $embed-responsive-aspect-ratio-x: list.nth($embed-responsive-aspect-ratio, 1);
+  $embed-responsive-aspect-ratio-y: list.nth($embed-responsive-aspect-ratio, 2);
 
   .embed-responsive-#{$embed-responsive-aspect-ratio-x}by#{$embed-responsive-aspect-ratio-y} {
     &::before {
-      padding-top: percentage(divide($embed-responsive-aspect-ratio-y, $embed-responsive-aspect-ratio-x));
+      padding-top: math.percentage(divide($embed-responsive-aspect-ratio-y, $embed-responsive-aspect-ratio-x));
     }
   }
 }

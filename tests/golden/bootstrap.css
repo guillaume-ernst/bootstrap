@@ -1678,11 +1678,11 @@ pre code {
 }
 
 .table-hover .table-active:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: hsla(0, 0%, -5%, 0.075);
 }
 .table-hover .table-active:hover > td,
 .table-hover .table-active:hover > th {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: hsla(0, 0%, -5%, 0.075);
 }
 
 .table .thead-dark th {
