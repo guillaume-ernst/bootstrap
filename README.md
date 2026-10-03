@@ -26,12 +26,12 @@ npm install @gernst/bootstrap
 ```
 
 ```scss
-// Avec @import (toujours supporté, avertissement import silençable)
+// Avec @import (arbre scss/ historique, avertissement import silençable)
 $primary: #0056b3;
 @import "@gernst/bootstrap/scss/bootstrap";
 
-// Avec @use
-@use "@gernst/bootstrap/scss/bootstrap" with (
+// Avec @use (arbre scss/module/, recommandé)
+@use "@gernst/bootstrap/scss/module/bootstrap" with (
   $primary: #0056b3
 );
 ```
@@ -44,6 +44,20 @@ import "@gernst/bootstrap/dist/js/bootstrap.bundle";
 import "@gernst/bootstrap/dist/js/bootstrap";
 ```
 
+## AdminLTE 3
+
+AdminLTE 3 fonctionne tel quel avec le fork via un alias npm :
+
+```json
+{
+  "dependencies": {
+    "bootstrap": "npm:@gernst/bootstrap@^4.7.0"
+  }
+}
+```
+
+Voir la [section AdminLTE de MIGRATION.md](./MIGRATION.md#adminlte-3) pour les détails Sass (`~` webpack) et JavaScript.
+
 ## Compatibilité
 
 | Outil           | Minimum supporté |
@@ -52,6 +66,7 @@ import "@gernst/bootstrap/dist/js/bootstrap";
 | Node.js (build) | 22 LTS           |
 | jQuery          | 3.5+ (4.x OK)    |
 | @popperjs/core  | 2.11+            |
+| AdminLTE        | 3.x              |
 | Navigateurs     | modernes + ESR   |
 
 ## Documentation
