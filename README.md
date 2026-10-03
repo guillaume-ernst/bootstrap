@@ -95,6 +95,11 @@ See the [AdminLTE section in MIGRATION.md](./MIGRATION.md#adminlte-3) for Sass (
 | AdminLTE        | 3.x               |
 | Browsers        | modern + ESR      |
 
+## Demo
+
+- [Live demo (v4-modern)](https://guillaume-ernst.github.io/bootstrap/v4/) — the dist build exercising modal, dropdown, tooltip, popover and collapse with jQuery 4
+- [Live demo (v5-modern)](https://guillaume-ernst.github.io/bootstrap/v5/) — the v5 fork running with vanilla JS and Popper 2
+
 ## Documentation
 
 - [MIGRATION.md](./MIGRATION.md) — changes compared to Bootstrap 4.6.2
