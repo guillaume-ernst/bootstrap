@@ -10,19 +10,18 @@
 'use strict'
 
 const path = require('path')
-const rollup = require('rollup')
+const { rollup } = require('rollup')
 const { babel } = require('@rollup/plugin-babel')
 const banner = require('./banner.js')
 
 const TEST = process.env.NODE_ENV === 'test'
 const plugins = [
   babel({
-    // Only transpile our source code
     exclude: 'node_modules/**',
-    // Include the helpers in each file, at most one copy of each
     babelHelpers: 'bundled'
   })
 ]
+
 const bsPlugins = {
   Alert: path.resolve(__dirname, '../js/src/alert.js'),
   Button: path.resolve(__dirname, '../js/src/button.js'),
@@ -37,15 +36,16 @@ const bsPlugins = {
   Tooltip: path.resolve(__dirname, '../js/src/tooltip.js'),
   Util: path.resolve(__dirname, '../js/src/util.js')
 }
+
 const rootPath = TEST ? '../js/coverage/dist/' : '../js/dist/'
 
 const build = async plugin => {
   console.log(`Building ${plugin} plugin...`)
 
-  const external = ['jquery', 'popper.js']
+  const external = ['jquery', '@popperjs/core']
   const globals = {
-    jquery: 'jQuery', // Ensure we use jQuery which is always available even in noConflict mode
-    'popper.js': 'Popper'
+    jquery: 'jQuery',
+    '@popperjs/core': 'Popper'
   }
 
   // Do not bundle Util in plugins
@@ -61,7 +61,7 @@ const build = async plugin => {
   }
 
   const pluginFilename = `${plugin.toLowerCase()}.js`
-  const bundle = await rollup.rollup({
+  const bundle = await rollup({
     input: bsPlugins[plugin],
     plugins,
     external
@@ -73,6 +73,7 @@ const build = async plugin => {
     name: plugin,
     sourcemap: true,
     globals,
+    generatedCode: 'es2015',
     file: path.resolve(__dirname, `${rootPath}${pluginFilename}`)
   })
 
