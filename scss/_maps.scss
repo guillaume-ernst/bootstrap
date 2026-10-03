@@ -1,3 +1,4 @@
+@use "sass:map";
 // Re-assigned maps
 //
 // Placed here so that others can override the default Sass maps and see automatic updates to utilities and more.
@@ -100,7 +101,7 @@ $utilities-colors: $theme-colors-rgb !default;
 // scss-docs-end utilities-colors
 
 // scss-docs-start utilities-text-colors
-$utilities-text: map-merge(
+$utilities-text: map.merge(
   $utilities-colors,
   (
     "black": to-rgb($black),
@@ -123,7 +124,7 @@ $utilities-text-emphasis-colors: (
 // scss-docs-end utilities-text-colors
 
 // scss-docs-start utilities-bg-colors
-$utilities-bg: map-merge(
+$utilities-bg: map.merge(
   $utilities-colors,
   (
     "black": to-rgb($black),
@@ -146,7 +147,7 @@ $utilities-bg-subtle: (
 // scss-docs-end utilities-bg-colors
 
 // scss-docs-start utilities-border-colors
-$utilities-border: map-merge(
+$utilities-border: map.merge(
   $utilities-colors,
   (
     "black": to-rgb($black),
@@ -169,6 +170,9 @@ $utilities-border-subtle: (
 
 $utilities-links-underline: map-loop($utilities-colors, rgba-css-var, "$key", "link-underline") !default;
 
-$negative-spacers: if($enable-negative-margins, negativify-map($spacers), null) !default;
+$negative-spacers: null !default;
+@if $enable-negative-margins and $negative-spacers == null {
+  $negative-spacers: negativify-map($spacers);
+}
 
 $gutters: $spacers !default;

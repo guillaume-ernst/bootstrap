@@ -1,15 +1,20 @@
-// This mixin uses an `if()` technique to be compatible with Dart Sass
+// This mixin preserves the parent selector when nested
 // See https://github.com/sass/sass/issues/1873#issuecomment-152293725 for more details
 
 // scss-docs-start form-validation-mixins
 @mixin form-validation-state-selector($state) {
+  $parent-selector: "";
+  @if & {
+    $parent-selector: "&";
+  }
+
   @if ($state == "valid" or $state == "invalid") {
-    .was-validated #{if(&, "&", "")}:#{$state},
-    #{if(&, "&", "")}.is-#{$state} {
+    .was-validated #{$parent-selector}:#{$state},
+    #{$parent-selector}.is-#{$state} {
       @content;
     }
   } @else {
-    #{if(&, "&", "")}.is-#{$state} {
+    #{$parent-selector}.is-#{$state} {
       @content;
     }
   }

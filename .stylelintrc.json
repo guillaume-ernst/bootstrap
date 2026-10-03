@@ -4,6 +4,9 @@
   ],
   "reportInvalidScopeDisables": true,
   "reportNeedlessDisables": true,
+  "rules": {
+    "scss/at-function-named-arguments": null
+  },
   "overrides": [
     {
       "files": "**/*.scss",
