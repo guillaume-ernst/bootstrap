@@ -1,18 +1,28 @@
 {
   "name": "@gernst/bootstrap",
-  "description": "Fork maintained of Bootstrap 4, modernized for Dart Sass 2, jQuery 4 and Popper 2.",
+  "description": "Maintained fork of Bootstrap 4 (v4.6.2 base). jQuery 3.5+/4 and Popper 2 support, Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree. Drop-in replacement for bootstrap@4, works with AdminLTE 3.",
   "version": "4.7.0-dev",
   "config": {
     "version_short": "4.7"
   },
   "keywords": [
-    "css",
+    "bootstrap",
+    "bootstrap4",
+    "bootstrap-4",
+    "bootstrap-fork",
+    "css-framework",
     "sass",
-    "mobile-first",
+    "scss",
+    "dart-sass",
+    "sass-modules",
+    "jquery",
+    "jquery4",
+    "popper",
+    "adminlte",
     "responsive",
     "front-end",
-    "framework",
-    "web"
+    "ui-framework",
+    "maintained"
   ],
   "homepage": "https://github.com/guillaume-ernst/bootstrap#readme",
   "author": "Guillaume Ernst",
