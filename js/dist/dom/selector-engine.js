@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap selector-engine.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap selector-engine.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -39,13 +39,13 @@
   };
   const SelectorEngine = {
     find(selector, element = document.documentElement) {
-      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+      return [...Element.prototype.querySelectorAll.call(element, selector)];
     },
     findOne(selector, element = document.documentElement) {
       return Element.prototype.querySelector.call(element, selector);
     },
     children(element, selector) {
-      return [].concat(...element.children).filter(child => child.matches(selector));
+      return [...element.children].filter(child => child.matches(selector));
     },
     parents(element, selector) {
       const parents = [];

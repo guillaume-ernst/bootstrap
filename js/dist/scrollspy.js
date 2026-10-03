@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap scrollspy.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap scrollspy.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -129,7 +129,7 @@
         const observableSection = this._observableSections.get(event.target.hash);
         if (observableSection) {
           event.preventDefault();
-          const root = this._rootElement || window;
+          const root = this._rootElement || globalThis;
           const height = observableSection.offsetTop - this._element.offsetTop;
           if (root.scrollTo) {
             root.scrollTo({
@@ -257,7 +257,7 @@
    * Data API implementation
    */
 
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
     for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
       ScrollSpy.getOrCreateInstance(spy);
     }

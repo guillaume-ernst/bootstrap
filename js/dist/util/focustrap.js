@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap focustrap.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap focustrap.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -94,7 +94,7 @@
       if (elements.length === 0) {
         trapElement.focus();
       } else if (this._lastTabNavDirection === TAB_NAV_BACKWARD) {
-        elements[elements.length - 1].focus();
+        elements.at(-1).focus();
       } else {
         elements[0].focus();
       }

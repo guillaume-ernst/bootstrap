@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap swipe.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap swipe.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -56,7 +56,7 @@
       }
       this._config = this._getConfig(config);
       this._deltaX = 0;
-      this._supportPointerEvents = Boolean(window.PointerEvent);
+      this._supportPointerEvents = Boolean(globalThis.PointerEvent);
       this._initEvents();
     }
 

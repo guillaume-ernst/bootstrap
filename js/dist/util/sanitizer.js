@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap sanitizer.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap sanitizer.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -84,17 +84,17 @@
     if (sanitizeFunction && typeof sanitizeFunction === 'function') {
       return sanitizeFunction(unsafeHtml);
     }
-    const domParser = new window.DOMParser();
+    const domParser = new globalThis.DOMParser();
     const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
-    const elements = [].concat(...createdDocument.body.querySelectorAll('*'));
+    const elements = [...createdDocument.body.querySelectorAll('*')];
     for (const element of elements) {
       const elementName = element.nodeName.toLowerCase();
       if (!Object.keys(allowList).includes(elementName)) {
         element.remove();
         continue;
       }
-      const attributeList = [].concat(...element.attributes);
-      const allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || []);
+      const attributeList = [...element.attributes];
+      const allowedAttributes = [...(allowList['*'] || []), ...(allowList[elementName] || [])];
       for (const attribute of attributeList) {
         if (!allowedAttribute(attribute, allowedAttributes)) {
           element.removeAttribute(attribute.nodeName);

@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap event-handler.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap event-handler.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -42,7 +42,7 @@
   function getElementEvents(element) {
     const uid = makeEventUid(element);
     element.uidEvent = uid;
-    eventRegistry[uid] = eventRegistry[uid] || {};
+    eventRegistry[uid] || (eventRegistry[uid] = {});
     return eventRegistry[uid];
   }
   function bootstrapHandler(element, fn) {
@@ -99,20 +99,19 @@
     // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
     // this prevents the handler from being dispatched the same way as mouseover or mouseout does
     if (originalTypeEvent in customEvents) {
-      const wrapFunction = fn => {
-        return function (event) {
-          if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
-            return fn.call(this, event);
-          }
-        };
+      const wrapFunction = fn => function (event) {
+        if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
+          return fn.call(this, event);
+        }
       };
       callable = wrapFunction(callable);
     }
     const events = getElementEvents(element);
-    const handlers = events[typeEvent] || (events[typeEvent] = {});
+    events[typeEvent] || (events[typeEvent] = {});
+    const handlers = events[typeEvent];
     const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null);
     if (previousFunction) {
-      previousFunction.oneOff = previousFunction.oneOff && oneOff;
+      previousFunction.oneOff && (previousFunction.oneOff = oneOff);
       return;
     }
     const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ''));
@@ -161,7 +160,7 @@
       const events = getElementEvents(element);
       const storeElementEvent = events[typeEvent] || {};
       const isNamespace = originalTypeEvent.startsWith('.');
-      if (typeof callable !== 'undefined') {
+      if (callable !== undefined) {
         // Simplest case: handler is passed, remove that listener ONLY.
         if (!Object.keys(storeElementEvent).length) {
           return;

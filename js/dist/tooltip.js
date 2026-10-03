@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap tooltip.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap tooltip.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -114,7 +114,7 @@
 
   class Tooltip extends BaseComponent {
     constructor(element, config) {
-      if (typeof Popper__namespace === 'undefined') {
+      if (Popper__namespace === undefined) {
         throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)');
       }
       super(element, config);
@@ -209,7 +209,7 @@
       // only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.on(element, 'mouseover', index_js.noop);
         }
       }
@@ -236,7 +236,7 @@
       // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.off(element, 'mouseover', index_js.noop);
         }
       }
@@ -268,9 +268,7 @@
       return Boolean(this._getTitle());
     }
     _getTipElement() {
-      if (!this.tip) {
-        this.tip = this._createTipElement(this._newContent || this._getContentForTemplate());
-      }
+      this.tip || (this.tip = this._createTipElement(this._newContent || this._getContentForTemplate()));
       return this.tip;
     }
     _createTipElement(content) {
@@ -526,7 +524,7 @@
         if (typeof config !== 'string') {
           return;
         }
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`);
         }
         data[config]();

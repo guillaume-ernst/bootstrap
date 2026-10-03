@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap index.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap index.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -26,9 +26,9 @@
    * @returns {string}
    */
   const parseSelector = selector => {
-    if (selector && window.CSS && window.CSS.escape) {
+    if (selector && globalThis.CSS && globalThis.CSS.escape) {
       // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
-      selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+      selector = selector.replaceAll(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
     }
     return selector;
   };
@@ -60,7 +60,7 @@
     let {
       transitionDuration,
       transitionDelay
-    } = window.getComputedStyle(element);
+    } = globalThis.getComputedStyle(element);
     const floatTransitionDuration = Number.parseFloat(transitionDuration);
     const floatTransitionDelay = Number.parseFloat(transitionDelay);
 
@@ -81,10 +81,10 @@
     if (!object || typeof object !== 'object') {
       return false;
     }
-    if (typeof object.jquery !== 'undefined') {
+    if (object.jquery !== undefined) {
       object = object[0];
     }
-    return typeof object.nodeType !== 'undefined';
+    return object.nodeType !== undefined;
   };
   const getElement = object => {
     // it's a jQuery object or a node element
@@ -124,7 +124,7 @@
     if (element.classList.contains('disabled')) {
       return true;
     }
-    if (typeof element.disabled !== 'undefined') {
+    if (element.disabled !== undefined) {
       return element.disabled;
     }
     return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false';
@@ -163,8 +163,8 @@
     element.offsetHeight; // eslint-disable-line no-unused-expressions
   };
   const getjQuery = () => {
-    if (window.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
-      return window.jQuery;
+    if (globalThis.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
+      return globalThis.jQuery;
     }
     return null;
   };
@@ -201,9 +201,7 @@
       }
     });
   };
-  const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
-    return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
-  };
+  const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
   const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
     if (!waitForTransition) {
       execute(callback);

@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap offcanvas.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap offcanvas.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -220,12 +220,12 @@
     const data = Offcanvas.getOrCreateInstance(target);
     data.toggle(this);
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
     for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
       Offcanvas.getOrCreateInstance(selector).show();
     }
   });
-  EventHandler.on(window, EVENT_RESIZE, () => {
+  EventHandler.on(globalThis, EVENT_RESIZE, () => {
     for (const element of SelectorEngine.find('[aria-modal][class*=show][class*=offcanvas-]')) {
       if (getComputedStyle(element).position !== 'fixed') {
         Offcanvas.getOrCreateInstance(element).hide();

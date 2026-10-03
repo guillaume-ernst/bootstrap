@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap collapse.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap collapse.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -212,7 +212,7 @@
       return this.each(function () {
         const data = Collapse.getOrCreateInstance(this, _config);
         if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+          if (data[config] === undefined) {
             throw new TypeError(`No method named "${config}"`);
           }
           data[config]();

@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap carousel.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap carousel.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -258,14 +258,12 @@
         return;
       }
       const nextElementIndex = this._getItemIndex(nextElement);
-      const triggerEvent = eventName => {
-        return EventHandler.trigger(this._element, eventName, {
-          relatedTarget: nextElement,
-          direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
-          to: nextElementIndex
-        });
-      };
+      const triggerEvent = eventName => EventHandler.trigger(this._element, eventName, {
+        relatedTarget: nextElement,
+        direction: this._orderToDirection(order),
+        from: this._getItemIndex(activeElement),
+        to: nextElementIndex
+      });
       const slideEvent = triggerEvent(EVENT_SLIDE);
       if (slideEvent.defaultPrevented) {
         return;
@@ -369,7 +367,7 @@
     carousel.prev();
     carousel._maybeEnableCycle();
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
     const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
     for (const carousel of carousels) {
       Carousel.getOrCreateInstance(carousel);

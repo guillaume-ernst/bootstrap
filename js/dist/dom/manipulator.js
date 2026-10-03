@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap manipulator.js v5.3.8 (https://getbootstrap.com/)
-  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap manipulator.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -39,7 +39,7 @@
     }
   }
   function normalizeDataKey(key) {
-    return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
+    return key.replaceAll(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
   }
   const Manipulator = {
     setDataAttribute(element, key, value) {

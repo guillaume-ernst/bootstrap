@@ -51,7 +51,7 @@
       // can be removed later when multiple key/instances are fine to be used
       if (!instanceMap.has(key) && instanceMap.size !== 0) {
         // eslint-disable-next-line no-console
-        console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+        console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${[...instanceMap.keys()][0]}.`);
         return;
       }
       instanceMap.set(key, instance);
@@ -93,9 +93,9 @@
    * @returns {string}
    */
   const parseSelector = selector => {
-    if (selector && window.CSS && window.CSS.escape) {
+    if (selector && globalThis.CSS && globalThis.CSS.escape) {
       // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
-      selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+      selector = selector.replaceAll(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
     }
     return selector;
   };
@@ -127,7 +127,7 @@
     let {
       transitionDuration,
       transitionDelay
-    } = window.getComputedStyle(element);
+    } = globalThis.getComputedStyle(element);
     const floatTransitionDuration = Number.parseFloat(transitionDuration);
     const floatTransitionDelay = Number.parseFloat(transitionDelay);
 
@@ -148,10 +148,10 @@
     if (!object || typeof object !== 'object') {
       return false;
     }
-    if (typeof object.jquery !== 'undefined') {
+    if (object.jquery !== undefined) {
       object = object[0];
     }
-    return typeof object.nodeType !== 'undefined';
+    return object.nodeType !== undefined;
   };
   const getElement = object => {
     // it's a jQuery object or a node element
@@ -191,7 +191,7 @@
     if (element.classList.contains('disabled')) {
       return true;
     }
-    if (typeof element.disabled !== 'undefined') {
+    if (element.disabled !== undefined) {
       return element.disabled;
     }
     return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false';
@@ -230,8 +230,8 @@
     element.offsetHeight; // eslint-disable-line no-unused-expressions
   };
   const getjQuery = () => {
-    if (window.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
-      return window.jQuery;
+    if (globalThis.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
+      return globalThis.jQuery;
     }
     return null;
   };
@@ -268,9 +268,7 @@
       }
     });
   };
-  const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
-    return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
-  };
+  const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
   const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
     if (!waitForTransition) {
       execute(callback);
@@ -355,7 +353,7 @@
   function getElementEvents(element) {
     const uid = makeEventUid(element);
     element.uidEvent = uid;
-    eventRegistry[uid] = eventRegistry[uid] || {};
+    eventRegistry[uid] || (eventRegistry[uid] = {});
     return eventRegistry[uid];
   }
   function bootstrapHandler(element, fn) {
@@ -412,20 +410,19 @@
     // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
     // this prevents the handler from being dispatched the same way as mouseover or mouseout does
     if (originalTypeEvent in customEvents) {
-      const wrapFunction = fn => {
-        return function (event) {
-          if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
-            return fn.call(this, event);
-          }
-        };
+      const wrapFunction = fn => function (event) {
+        if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
+          return fn.call(this, event);
+        }
       };
       callable = wrapFunction(callable);
     }
     const events = getElementEvents(element);
-    const handlers = events[typeEvent] || (events[typeEvent] = {});
+    events[typeEvent] || (events[typeEvent] = {});
+    const handlers = events[typeEvent];
     const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null);
     if (previousFunction) {
-      previousFunction.oneOff = previousFunction.oneOff && oneOff;
+      previousFunction.oneOff && (previousFunction.oneOff = oneOff);
       return;
     }
     const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ''));
@@ -474,7 +471,7 @@
       const events = getElementEvents(element);
       const storeElementEvent = events[typeEvent] || {};
       const isNamespace = originalTypeEvent.startsWith('.');
-      if (typeof callable !== 'undefined') {
+      if (callable !== undefined) {
         // Simplest case: handler is passed, remove that listener ONLY.
         if (!Object.keys(storeElementEvent).length) {
           return;
@@ -574,7 +571,7 @@
     }
   }
   function normalizeDataKey(key) {
-    return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
+    return key.replaceAll(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
   }
   const Manipulator = {
     setDataAttribute(element, key, value) {
@@ -755,13 +752,13 @@
   };
   const SelectorEngine = {
     find(selector, element = document.documentElement) {
-      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+      return [...Element.prototype.querySelectorAll.call(element, selector)];
     },
     findOne(selector, element = document.documentElement) {
       return Element.prototype.querySelector.call(element, selector);
     },
     children(element, selector) {
-      return [].concat(...element.children).filter(child => child.matches(selector));
+      return [...element.children].filter(child => child.matches(selector));
     },
     parents(element, selector) {
       const parents = [];
@@ -1025,7 +1022,7 @@
       }
       this._config = this._getConfig(config);
       this._deltaX = 0;
-      this._supportPointerEvents = Boolean(window.PointerEvent);
+      this._supportPointerEvents = Boolean(globalThis.PointerEvent);
       this._initEvents();
     }
 
@@ -1347,14 +1344,12 @@
         return;
       }
       const nextElementIndex = this._getItemIndex(nextElement);
-      const triggerEvent = eventName => {
-        return EventHandler.trigger(this._element, eventName, {
-          relatedTarget: nextElement,
-          direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
-          to: nextElementIndex
-        });
-      };
+      const triggerEvent = eventName => EventHandler.trigger(this._element, eventName, {
+        relatedTarget: nextElement,
+        direction: this._orderToDirection(order),
+        from: this._getItemIndex(activeElement),
+        to: nextElementIndex
+      });
       const slideEvent = triggerEvent(EVENT_SLIDE);
       if (slideEvent.defaultPrevented) {
         return;
@@ -1458,7 +1453,7 @@
     carousel.prev();
     carousel._maybeEnableCycle();
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API$3, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API$3, () => {
     const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
     for (const carousel of carousels) {
       Carousel.getOrCreateInstance(carousel);
@@ -1674,7 +1669,7 @@
       return this.each(function () {
         const data = Collapse.getOrCreateInstance(this, _config);
         if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+          if (data[config] === undefined) {
             throw new TypeError(`No method named "${config}"`);
           }
           data[config]();
@@ -1818,7 +1813,7 @@
       // only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement && !this._parent.closest(SELECTOR_NAVBAR_NAV)) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.on(element, 'mouseover', noop);
         }
       }
@@ -1860,7 +1855,7 @@
       // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.off(element, 'mouseover', noop);
         }
       }
@@ -1882,7 +1877,7 @@
       return config;
     }
     _createPopper() {
-      if (typeof Popper__namespace === 'undefined') {
+      if (Popper__namespace === undefined) {
         throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org/docs/v2/)');
       }
       let referenceElement = this._element;
@@ -1986,7 +1981,7 @@
         if (typeof config !== 'string') {
           return;
         }
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`);
         }
         data[config]();
@@ -2282,7 +2277,7 @@
       if (elements.length === 0) {
         trapElement.focus();
       } else if (this._lastTabNavDirection === TAB_NAV_BACKWARD) {
-        elements[elements.length - 1].focus();
+        elements.at(-1).focus();
       } else {
         elements[0].focus();
       }
@@ -2358,7 +2353,7 @@
           return;
         }
         this._saveInitialAttribute(element, styleProperty);
-        const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+        const calculatedValue = globalThis.getComputedStyle(element).getPropertyValue(styleProperty);
         element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
       };
       this._applyManipulationCallback(selector, manipulationCallBack);
@@ -2502,7 +2497,7 @@
       this._queueCallback(() => this._hideModal(), this._element, this._isAnimated());
     }
     dispose() {
-      EventHandler.off(window, EVENT_KEY$4);
+      EventHandler.off(globalThis, EVENT_KEY$4);
       EventHandler.off(this._dialog, EVENT_KEY$4);
       this._backdrop.dispose();
       this._focustrap.deactivate();
@@ -2563,7 +2558,7 @@
         }
         this._triggerBackdropTransition();
       });
-      EventHandler.on(window, EVENT_RESIZE$1, () => {
+      EventHandler.on(globalThis, EVENT_RESIZE$1, () => {
         if (this._isShown && !this._isTransitioning) {
           this._adjustDialog();
         }
@@ -2653,7 +2648,7 @@
         if (typeof config !== 'string') {
           return;
         }
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`);
         }
         data[config](relatedTarget);
@@ -2909,12 +2904,12 @@
     const data = Offcanvas.getOrCreateInstance(target);
     data.toggle(this);
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API$2, () => {
     for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
       Offcanvas.getOrCreateInstance(selector).show();
     }
   });
-  EventHandler.on(window, EVENT_RESIZE, () => {
+  EventHandler.on(globalThis, EVENT_RESIZE, () => {
     for (const element of SelectorEngine.find('[aria-modal][class*=show][class*=offcanvas-]')) {
       if (getComputedStyle(element).position !== 'fixed') {
         Offcanvas.getOrCreateInstance(element).hide();
@@ -3004,17 +2999,17 @@
     if (sanitizeFunction && typeof sanitizeFunction === 'function') {
       return sanitizeFunction(unsafeHtml);
     }
-    const domParser = new window.DOMParser();
+    const domParser = new globalThis.DOMParser();
     const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
-    const elements = [].concat(...createdDocument.body.querySelectorAll('*'));
+    const elements = [...createdDocument.body.querySelectorAll('*')];
     for (const element of elements) {
       const elementName = element.nodeName.toLowerCase();
       if (!Object.keys(allowList).includes(elementName)) {
         element.remove();
         continue;
       }
-      const attributeList = [].concat(...element.attributes);
-      const allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || []);
+      const attributeList = [...element.attributes];
+      const allowedAttributes = [...(allowList['*'] || []), ...(allowList[elementName] || [])];
       for (const attribute of attributeList) {
         if (!allowedAttribute(attribute, allowedAttributes)) {
           element.removeAttribute(attribute.nodeName);
@@ -3246,7 +3241,7 @@
 
   class Tooltip extends BaseComponent {
     constructor(element, config) {
-      if (typeof Popper__namespace === 'undefined') {
+      if (Popper__namespace === undefined) {
         throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)');
       }
       super(element, config);
@@ -3341,7 +3336,7 @@
       // only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.on(element, 'mouseover', noop);
         }
       }
@@ -3368,7 +3363,7 @@
       // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
-        for (const element of [].concat(...document.body.children)) {
+        for (const element of document.body.children) {
           EventHandler.off(element, 'mouseover', noop);
         }
       }
@@ -3400,9 +3395,7 @@
       return Boolean(this._getTitle());
     }
     _getTipElement() {
-      if (!this.tip) {
-        this.tip = this._createTipElement(this._newContent || this._getContentForTemplate());
-      }
+      this.tip || (this.tip = this._createTipElement(this._newContent || this._getContentForTemplate()));
       return this.tip;
     }
     _createTipElement(content) {
@@ -3658,7 +3651,7 @@
         if (typeof config !== 'string') {
           return;
         }
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`);
         }
         data[config]();
@@ -3739,7 +3732,7 @@
         if (typeof config !== 'string') {
           return;
         }
-        if (typeof data[config] === 'undefined') {
+        if (data[config] === undefined) {
           throw new TypeError(`No method named "${config}"`);
         }
         data[config]();
@@ -3873,7 +3866,7 @@
         const observableSection = this._observableSections.get(event.target.hash);
         if (observableSection) {
           event.preventDefault();
-          const root = this._rootElement || window;
+          const root = this._rootElement || globalThis;
           const height = observableSection.offsetTop - this._element.offsetTop;
           if (root.scrollTo) {
             root.scrollTo({
@@ -4001,7 +3994,7 @@
    * Data API implementation
    */
 
-  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API$1, () => {
     for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
       ScrollSpy.getOrCreateInstance(spy);
     }
@@ -4272,7 +4265,7 @@
   /**
    * Initialize on focus
    */
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  EventHandler.on(globalThis, EVENT_LOAD_DATA_API, () => {
     for (const element of SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE)) {
       Tab.getOrCreateInstance(element);
     }
@@ -4445,7 +4438,7 @@
       return this.each(function () {
         const data = Toast.getOrCreateInstance(this, config);
         if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+          if (data[config] === undefined) {
             throw new TypeError(`No method named "${config}"`);
           }
           data[config](this);
@@ -4491,3 +4484,4 @@
   return index_umd;
 
 }));
+//# sourceMappingURL=bootstrap.js.map
