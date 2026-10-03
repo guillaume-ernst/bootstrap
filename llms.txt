@@ -1,0 +1,39 @@
+# bootstrap-modernized
+
+> Maintained Bootstrap forks modernized for 2026-era stacks, published as the npm package
+> `bootstrap-modernized`. Unofficial community fork — not affiliated with the Bootstrap team.
+> Two branches carry the work: `v4-modern` (Bootstrap 4 line) and `v5-modern` (Bootstrap 5 line).
+> `main` only mirrors upstream and hosts this index.
+
+## Which line to use
+
+- Project uses Bootstrap 4 (e.g. AdminLTE 3, jQuery plugins): use `v4-modern` → `bootstrap-modernized@^4`
+- Project uses Bootstrap 5: use `v5-modern` → `bootstrap-modernized@^5`
+
+## Install
+
+```sh
+npm install bootstrap-modernized@^4   # Bootstrap 4 line
+npm install bootstrap-modernized@^5   # Bootstrap 5 line
+
+# Drop-in alias — keeps every existing "bootstrap" import/require/~bootstrap specifier working:
+npm install bootstrap@npm:bootstrap-modernized@^4
+npm install bootstrap@npm:bootstrap-modernized@^5
+```
+
+## Key facts
+
+- `v4-modern`: Bootstrap 4.6.2 base, version 4.7.x. jQuery 4 support (3 still works), Popper 2,
+  byte-identical CSS (golden-tested), AdminLTE 3 verified in CI.
+- `v5-modern`: Bootstrap 5.3.8 base, version 5.4.x. Vanilla JS + Popper 2, no jQuery dependency.
+- Both lines: Dart Sass 2/3 clean `scss/` (`@import`) plus parallel `scss/module/` tree
+  (`@use`/`@forward`, configurable via `with()`), ESM builds with `exports` map, Node.js 22 toolchain.
+- MIT licensed. Original copyright: Twitter, Inc. and The Bootstrap Authors.
+
+## Links
+
+- Repository: https://github.com/guillaume-ernst/bootstrap-modernized
+- Live demos: https://guillaume-ernst.github.io/bootstrap-modernized/demo/
+- v4 branch README: https://github.com/guillaume-ernst/bootstrap-modernized/tree/v4-modern
+- v5 branch README: https://github.com/guillaume-ernst/bootstrap-modernized/tree/v5-modern
+- npm: https://www.npmjs.com/package/bootstrap-modernized
