@@ -101,5 +101,5 @@ if (diff) {
   process.exit(1)
 }
 
-console.log('AdminLTE 3 compiles against @gernst/bootstrap: OK')
+console.log('AdminLTE 3 compiles against bootstrap-modernized: OK')
 console.log('Compiled output is identical to AdminLTE built on Bootstrap 4.6.2: OK')

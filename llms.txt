@@ -1,4 +1,4 @@
-# @gernst/bootstrap (v4-modern)
+# bootstrap-modernized (v4-modern)
 
 > Maintained fork of Bootstrap 4.6.2, modernized for 2026-era stacks. Drop-in replacement for
 > `bootstrap@4`: byte-identical CSS, unchanged jQuery plugin API (`$.fn.*`) and `data-*`
@@ -7,7 +7,7 @@
 
 ## Install
 
-- `bootstrap` → `npm:@gernst/bootstrap@^4.7.0` (npm alias keeps every `import "bootstrap"` /
+- `bootstrap` → `npm:bootstrap-modernized@^4.7.0` (npm alias keeps every `import "bootstrap"` /
   `@import "bootstrap"` / webpack `~bootstrap` working unchanged)
 
 ## Key facts
@@ -29,4 +29,4 @@
 - [MIGRATION.md](./MIGRATION.md) — full changelog vs upstream 4.6.2
 - [AGENTS.md](./AGENTS.md) — step-by-step migration playbook for coding agents
 - [CHANGELOG.md](./CHANGELOG.md)
-- Live demo: https://guillaume-ernst.github.io/bootstrap/demo/v4/
+- Live demo: https://guillaume-ernst.github.io/bootstrap-modernized/demo/v4/

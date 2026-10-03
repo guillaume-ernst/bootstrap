@@ -1,5 +1,5 @@
 {
-  "name": "@gernst/bootstrap",
+  "name": "bootstrap-modernized",
   "description": "Maintained fork of Bootstrap 4 (v4.6.2 base). jQuery 3.5+/4 and Popper 2 support, Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree. Drop-in replacement for bootstrap@4, works with AdminLTE 3.",
   "version": "4.7.0-dev",
   "config": {
@@ -24,7 +24,7 @@
     "ui-framework",
     "maintained"
   ],
-  "homepage": "https://github.com/guillaume-ernst/bootstrap#readme",
+  "homepage": "https://github.com/guillaume-ernst/bootstrap-modernized#readme",
   "author": "Guillaume Ernst",
   "contributors": [
     "The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)",
@@ -33,10 +33,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guillaume-ernst/bootstrap.git"
+    "url": "git+https://github.com/guillaume-ernst/bootstrap-modernized.git"
   },
   "bugs": {
-    "url": "https://github.com/guillaume-ernst/bootstrap/issues"
+    "url": "https://github.com/guillaume-ernst/bootstrap-modernized/issues"
   },
   "main": "dist/js/bootstrap.js",
   "module": "dist/js/bootstrap.esm.js",

@@ -1,7 +1,7 @@
 {
   "name": "adminlte-compat-fixture",
   "private": true,
-  "description": "Smoke test: AdminLTE 3 against the @gernst/bootstrap fork",
+  "description": "Smoke test: AdminLTE 3 against the bootstrap-modernized fork",
   "dependencies": {
     "admin-lte": "^3.2.0",
     "bootstrap": "file:../..",

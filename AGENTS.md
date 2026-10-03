@@ -1,7 +1,7 @@
-# Agent guide — @gernst/bootstrap
+# Agent guide — bootstrap-modernized
 
 This file tells an agent how to migrate a consumer project from the legacy `bootstrap` npm
-package to this fork (`@gernst/bootstrap`), and how to work inside this repository.
+package to this fork (`bootstrap-modernized`), and how to work inside this repository.
 
 Two maintained branches exist:
 
@@ -20,7 +20,7 @@ across major versions as part of this swap.
 ```json
 {
   "dependencies": {
-    "bootstrap": "npm:@gernst/bootstrap@^4.7.0"
+    "bootstrap": "npm:bootstrap-modernized@^4.7.0"
   }
 }
 ```
@@ -28,7 +28,7 @@ across major versions as part of this swap.
 The npm alias keeps every `import "bootstrap"` / `@import "bootstrap"` working unchanged,
 including webpack `~bootstrap` prefixes used by themes like AdminLTE 3.
 
-Alternatively depend on `@gernst/bootstrap` directly and update import specifiers.
+Alternatively depend on `bootstrap-modernized` directly and update import specifiers.
 
 ### 2. JavaScript and jQuery
 
@@ -56,7 +56,7 @@ The package ships two Sass trees:
   the `@import` deprecation warning under Dart Sass.
 - `scss/module/` — `@use`/`@forward` tree, no warnings, recommended for new code. Produces
   CSS identical to the legacy tree. The package also exposes
-  `@gernst/bootstrap/scss/module*` through `exports`.
+  `bootstrap-modernized/scss/module*` through `exports`.
 
 Option A — keep `@import` (zero-effort):
 

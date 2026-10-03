@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Fork of Bootstrap 4.6.2 under the package name `@gernst/bootstrap`.
+- Fork of Bootstrap 4.6.2 under the package name `bootstrap-modernized`.
 - Node.js 22 toolchain, Dart Sass, Rollup 4, Vitest and Playwright.
 - Golden CSS tests, Sass tree parity checks (`css-module-check`) and an AdminLTE compatibility check (`adminlte-check`).
 - Parallel Sass tree `scss/module/` based on `@use`/`@forward`, configurable via `@use ... with ()`; the legacy `scss/` tree remains untouched for `@import` consumers.
@@ -30,5 +30,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Original upstream version. See [twbs/bootstrap@v4.6.2](https://github.com/twbs/bootstrap/releases/tag/v4.6.2).
 
-[4.7.0-dev]: https://github.com/guillaume-ernst/bootstrap/compare/v4.6.2...HEAD
+[4.7.0-dev]: https://github.com/guillaume-ernst/bootstrap-modernized/compare/v4.6.2...HEAD
 [4.6.2]: https://github.com/twbs/bootstrap/releases/tag/v4.6.2

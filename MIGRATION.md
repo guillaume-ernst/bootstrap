@@ -1,4 +1,4 @@
-# Migration guide — @gernst/bootstrap v4
+# Migration guide — bootstrap-modernized v4
 
 This fork maintains Bootstrap 4 with modern compatibility: Dart Sass 2, jQuery 4 and Popper 2. All releases stay on major version 4 to avoid any confusion with Bootstrap 5.
 
@@ -37,20 +37,20 @@ This fork maintains Bootstrap 4 with modern compatibility: Dart Sass 2, jQuery 4
   ```
 
   ```bash
-  sass --silence-deprecation=import --load-path=node_modules/@gernst/bootstrap/scss style.scss dist/style.css
+  sass --silence-deprecation=import --load-path=node_modules/bootstrap-modernized/scss style.scss dist/style.css
   ```
 
 - Classic variable overrides remain valid:
 
   ```scss
   $primary: #0056b3;
-  @import "@gernst/bootstrap/scss/bootstrap";
+  @import "bootstrap-modernized/scss/bootstrap";
   ```
 
 - `@use ... with()` is also supported:
 
   ```scss
-  @use "@gernst/bootstrap/scss/bootstrap" with (
+  @use "bootstrap-modernized/scss/bootstrap" with (
     $primary: #0056b3
   );
   ```
@@ -72,7 +72,7 @@ This fork maintains Bootstrap 4 with modern compatibility: Dart Sass 2, jQuery 4
 
 ### Package
 
-- The npm package name is `@gernst/bootstrap`.
+- The npm package name is `bootstrap-modernized`.
 - The package exposes `exports` for ESM/UMD, Sass, CSS and individual JS paths.
 
 ## Sass modules (`scss/module/`)
@@ -81,7 +81,7 @@ A complete Sass tree based on `@use`/`@forward` is available under `scss/module/
 
 ```scss
 // Full, configurable entry point
-@use "@gernst/bootstrap/scss/module/bootstrap" with (
+@use "bootstrap-modernized/scss/module/bootstrap" with (
   $primary: #0056b3,
   $enable-rounded: false
 );
@@ -89,7 +89,7 @@ A complete Sass tree based on `@use`/`@forward` is available under `scss/module/
 
 - Any `!default` variable can be configured via `with ()` on the entry point.
 - The entry point re-exports `functions`, `variables` and `mixins`: the public API is accessible under a single namespace (`bootstrap.theme-color("primary")`, `@include bootstrap.border-radius()`, etc.).
-- Lightweight variants: `@gernst/bootstrap/scss/module/bootstrap-grid` and `bootstrap-reboot`.
+- Lightweight variants: `bootstrap-modernized/scss/module/bootstrap-grid` and `bootstrap-reboot`.
 - The CSS output is identical to the `@import` tree's (verified by `npm run css-module-check`).
 
 ### Differences from `@import` overrides
@@ -97,10 +97,10 @@ A complete Sass tree based on `@use`/`@forward` is available under `scss/module/
 ```scss
 // Legacy behavior (@import) — still valid with scss/
 $primary: #0056b3;
-@import "@gernst/bootstrap/scss/bootstrap";
+@import "bootstrap-modernized/scss/bootstrap";
 
 // Module equivalent (scss/module/)
-@use "@gernst/bootstrap/scss/module/bootstrap" with (
+@use "bootstrap-modernized/scss/module/bootstrap" with (
   $primary: #0056b3
 );
 ```
@@ -115,7 +115,7 @@ AdminLTE 3 targets Bootstrap 4 and works as-is with the fork. Replace the depend
 {
   "dependencies": {
     "admin-lte": "^3.2.0",
-    "bootstrap": "npm:@gernst/bootstrap@^4.7.0"
+    "bootstrap": "npm:bootstrap-modernized@^4.7.0"
   }
 }
 ```

@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap toast.js v4.7.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Bootstrap toast.js v4.7.0-dev (https://github.com/guillaume-ernst/bootstrap-modernized#readme)
   * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
