@@ -35,3 +35,6 @@ jobs:
 
       - name: Check golden CSS
         run: npm run css-golden-check
+
+      - name: Check Sass module parity
+        run: npm run css-module-check

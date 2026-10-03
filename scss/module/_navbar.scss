@@ -1,0 +1,329 @@
+@use "functions";
+@use "mixins/border-radius";
+@use "mixins/breakpoints";
+@use "mixins/hover";
+@use "variables";
+@use "vendor/rfs";
+
+@use "sass:map";
+// Contents
+//
+// Navbar
+// Navbar brand
+// Navbar nav
+// Navbar text
+// Navbar divider
+// Responsive navbar
+// Navbar position
+// Navbar themes
+
+// Navbar
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding: variables.$navbar-padding-y variables.$navbar-padding-x;
+
+  // Because flex properties aren't inherited, we need to redeclare these first
+  // few properties so that content nested within behave properly.
+  //
+  // The selector list is built explicitly rather than with `@extend`:
+  // the module system cannot reuse the legacy transitive `@extend` through
+  // `.container-fluid`, and it orders generated selectors differently.
+  $navbar-container-selectors: ".container, .container-fluid";
+  @each $breakpoint, $container-max-width in variables.$container-max-widths {
+    $navbar-container-selectors: "#{$navbar-container-selectors}, .container#{breakpoints.breakpoint-infix($breakpoint, variables.$container-max-widths)}";
+  }
+
+  #{$navbar-container-selectors} {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Navbar brand
+//
+// Used for brand, project, or site names.
+
+.navbar-brand {
+  display: inline-block;
+  padding-top: variables.$navbar-brand-padding-y;
+  padding-bottom: variables.$navbar-brand-padding-y;
+  margin-right: variables.$navbar-padding-x;
+  @include rfs.font-size(variables.$navbar-brand-font-size);
+  line-height: inherit;
+  white-space: nowrap;
+
+  @include hover.hover-focus() {
+    text-decoration: none;
+  }
+}
+
+// Navbar nav
+//
+// Custom navbar navigation (doesn't require `.nav`, but does make use of `.nav-link`).
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  .nav-link {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    float: none;
+  }
+}
+
+// Navbar text
+//
+//
+
+.navbar-text {
+  display: inline-block;
+  padding-top: variables.$nav-link-padding-y;
+  padding-bottom: variables.$nav-link-padding-y;
+}
+
+// Responsive navbar
+//
+// Custom styles for responsive collapsing and toggling of navbar contents.
+// Powered by the collapse Bootstrap JavaScript plugin.
+
+// When collapsed, prevent the toggleable navbar contents from appearing in
+// the default flexbox row orientation. Requires the use of `flex-wrap: wrap`
+// on the `.navbar` parent.
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  // For always expanded or extra full navbars, ensure content aligns itself
+  // properly vertically. Can be easily overridden with flex utilities.
+  align-items: center;
+}
+
+// Button for toggling the navbar when in its collapsed state
+.navbar-toggler {
+  padding:
+    variables.$navbar-toggler-padding-y
+    variables.$navbar-toggler-padding-x;
+  @include rfs.font-size(variables.$navbar-toggler-font-size);
+  line-height: 1;
+  background-color: transparent; // remove default button style
+  border: variables.$border-width solid transparent; // remove default button style
+  @include border-radius.border-radius(variables.$navbar-toggler-border-radius);
+
+  @include hover.hover-focus() {
+    text-decoration: none;
+  }
+}
+
+// Keep as a separate element so folks can easily override it with another icon
+// or image file as needed.
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: 50% / 100% 100% no-repeat;
+}
+
+.navbar-nav-scroll {
+  max-height: variables.$navbar-nav-scroll-max-height;
+  overflow-y: auto;
+}
+
+// Generate series of `.navbar-expand-*` responsive classes for configuring
+// where your navbar collapses.
+.navbar-expand {
+  @each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    $next: breakpoints.breakpoint-next(
+      $breakpoint,
+      variables.$grid-breakpoints
+    );
+    $infix: breakpoints.breakpoint-infix($next, variables.$grid-breakpoints);
+
+    &#{$infix} {
+      // Selector lists are built explicitly rather than with `@extend`: the
+      // module system emits `@extend`-generated selectors in a different order
+      // than the legacy `@import` build.
+      $navbar-container-selectors: "> .container, > .container-fluid";
+      @each $size, $container-max-width in variables.$container-max-widths {
+        $navbar-container-selectors: "#{$navbar-container-selectors}, > .container#{breakpoints.breakpoint-infix($size, variables.$container-max-widths)}";
+      }
+
+      @include breakpoints.media-breakpoint-down($breakpoint) {
+        #{$navbar-container-selectors} {
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
+
+      @include breakpoints.media-breakpoint-up($next) {
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+
+        .navbar-nav {
+          flex-direction: row;
+
+          .dropdown-menu {
+            position: absolute;
+          }
+
+          .nav-link {
+            padding-right: variables.$navbar-nav-link-padding-x;
+            padding-left: variables.$navbar-nav-link-padding-x;
+          }
+        }
+
+        // For nesting containers, have to redeclare for alignment purposes
+        #{$navbar-container-selectors} {
+          flex-wrap: nowrap;
+        }
+
+        .navbar-nav-scroll {
+          overflow: visible;
+        }
+
+        .navbar-collapse {
+          display: flex !important; // stylelint-disable-line declaration-no-important
+
+          // Changes flex-bases to auto because of an IE10 bug
+          flex-basis: auto;
+        }
+
+        .navbar-toggler {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Navbar themes
+//
+// Styles for switching between navbars with light or dark background.
+
+// Dark links against a light background
+.navbar-light {
+  .navbar-brand {
+    color: variables.$navbar-light-brand-color;
+
+    @include hover.hover-focus() {
+      color: variables.$navbar-light-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: variables.$navbar-light-color;
+
+      @include hover.hover-focus() {
+        color: variables.$navbar-light-hover-color;
+      }
+
+      &.disabled {
+        color: variables.$navbar-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: variables.$navbar-light-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: variables.$navbar-light-color;
+    border-color: variables.$navbar-light-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image:
+      variables.escape-svg(
+        variables.$navbar-light-toggler-icon-bg
+      );
+  }
+
+  .navbar-text {
+    color: variables.$navbar-light-color;
+    a {
+      color: variables.$navbar-light-active-color;
+
+      @include hover.hover-focus() {
+        color: variables.$navbar-light-active-color;
+      }
+    }
+  }
+}
+
+// White links against a dark background
+.navbar-dark {
+  .navbar-brand {
+    color: variables.$navbar-dark-brand-color;
+
+    @include hover.hover-focus() {
+      color: variables.$navbar-dark-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: variables.$navbar-dark-color;
+
+      @include hover.hover-focus() {
+        color: variables.$navbar-dark-hover-color;
+      }
+
+      &.disabled {
+        color: variables.$navbar-dark-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: variables.$navbar-dark-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: variables.$navbar-dark-color;
+    border-color: variables.$navbar-dark-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image:
+      variables.escape-svg(
+        variables.$navbar-dark-toggler-icon-bg
+      );
+  }
+
+  .navbar-text {
+    color: variables.$navbar-dark-color;
+    a {
+      color: variables.$navbar-dark-active-color;
+
+      @include hover.hover-focus() {
+        color: variables.$navbar-dark-active-color;
+      }
+    }
+  }
+}

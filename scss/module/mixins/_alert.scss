@@ -1,0 +1,16 @@
+@use "gradients";
+
+@use "sass:color";
+@mixin alert-variant($background, $border, $color) {
+  color: $color;
+  @include gradients.gradient-bg($background);
+  border-color: $border;
+
+  hr {
+    border-top-color: color.adjust($border, $lightness: -5%);
+  }
+
+  .alert-link {
+    color: color.adjust($color, $lightness: -10%);
+  }
+}

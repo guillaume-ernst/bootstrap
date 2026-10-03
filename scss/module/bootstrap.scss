@@ -1,0 +1,48 @@
+/*!
+ * Bootstrap v4.6.2 (https://getbootstrap.com/)
+ * Copyright 2011-2022 The Bootstrap Authors
+ * Copyright 2011-2022 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+// Configuration surface and public API: consumers can override any `!default`
+// variable with `@use "bootstrap" with ($variable: value)` and can call the
+// functions and mixins through the `bootstrap` namespace.
+@forward "functions";
+@forward "variables";
+@forward "mixins";
+
+@use "root";
+@use "reboot";
+@use "type";
+@use "images";
+@use "code";
+@use "grid";
+@use "tables";
+@use "forms";
+@use "buttons";
+@use "transitions";
+@use "dropdown";
+@use "button-group";
+@use "input-group";
+@use "custom-forms";
+@use "nav";
+@use "navbar";
+@use "card";
+@use "breadcrumb";
+@use "pagination";
+@use "badge";
+@use "jumbotron";
+@use "alert";
+@use "progress";
+@use "media";
+@use "list-group";
+@use "close";
+@use "toasts";
+@use "modal";
+@use "tooltip";
+@use "popover";
+@use "carousel";
+@use "spinners";
+@use "utilities";
+@use "print";

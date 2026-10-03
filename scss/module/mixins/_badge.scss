@@ -1,0 +1,22 @@
+@use "../functions";
+@use "../variables";
+@use "hover";
+
+@use "sass:color";
+@mixin badge-variant($bg) {
+  color: variables.color-yiq($bg);
+  background-color: $bg;
+
+  @at-root a#{&} {
+    @include hover.hover-focus() {
+      color: variables.color-yiq($bg);
+      background-color: color.adjust($bg, $lightness: -10%);
+    }
+
+    &:focus,
+    &.focus {
+      outline: 0;
+      box-shadow: 0 0 0 variables.$badge-focus-width rgba($bg, .5);
+    }
+  }
+}

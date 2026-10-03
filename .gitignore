@@ -41,6 +41,7 @@ Thumbs.db
 /js/coverage/
 /node_modules/
 .tmp-golden/
+.tmp-module/
 
 # Test output
 /test-results/

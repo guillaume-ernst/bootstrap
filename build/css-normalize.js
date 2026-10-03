@@ -28,6 +28,60 @@ function roundNumbers(value) {
   })
 }
 
+// Split a selector list on top-level commas, ignoring commas inside
+// quotes, parentheses and brackets (e.g. :not(a, b) or [data-x="a,b"]).
+function splitSelectorList(selector) {
+  const parts = []
+  let depth = 0
+  let quote = null
+  let current = ''
+
+  for (const char of selector) {
+    if (quote) {
+      current += char
+      if (char === quote) {
+        quote = null
+      }
+
+      continue
+    }
+
+    if (char === '"' || char === '\'') {
+      quote = char
+      current += char
+      continue
+    }
+
+    if (char === '(' || char === '[') {
+      depth++
+    }
+
+    if (char === ')' || char === ']') {
+      depth--
+    }
+
+    if (char === ',' && depth === 0) {
+      parts.push(current)
+      current = ''
+      continue
+    }
+
+    current += char
+  }
+
+  parts.push(current)
+  return parts
+}
+
+function normalizeSelector(selector) {
+  // One selector per line, sorted: list order and wrapping are formatting
+  // details, not semantic differences.
+  return splitSelectorList(selector)
+    .map(part => part.trim().replaceAll(/\s+/g, ' ').replaceAll(/\s*([>+~])\s*/g, ' $1 '))
+    .sort()
+    .join(',\n')
+}
+
 async function normalize(inputPath) {
   const css = fs.readFileSync(inputPath, 'utf8')
   const root = postcss.parse(css)
@@ -42,12 +96,16 @@ async function normalize(inputPath) {
 
   // Sort declarations within each rule alphabetically (ignores nested rules)
   root.walkRules(rule => {
+    rule.selector = normalizeSelector(rule.selector)
     const decls = rule.nodes.filter(node => node.type === 'decl')
     decls.sort((a, b) => a.prop.localeCompare(b.prop))
     decls.forEach(decl => rule.append(decl))
   })
 
   const result = root.toString(postcss.stringify)
+    // Collapse runs of blank lines; spacing between rules is formatting only.
+    .replaceAll(/\n{2,}/g, '\n')
+    .trim()
   process.stdout.write(result + '\n')
 }
 
