@@ -1,27 +1,27 @@
-# Guide de migration — @gernst/bootstrap v4
+# Migration guide — @gernst/bootstrap v4
 
-Ce fork maintient Bootstrap 4 avec une compatibilité moderne : Dart Sass 2, jQuery 4 et Popper 2. Toutes les releases restent en majeure 4 pour éviter toute confusion avec Bootstrap 5.
+This fork maintains Bootstrap 4 with modern compatibility: Dart Sass 2, jQuery 4 and Popper 2. All releases stay on major version 4 to avoid any confusion with Bootstrap 5.
 
-## Table des matières
+## Table of contents
 
-- [4.7.0 — Modernisation du build](#470)
-- [Modules Sass (`scss/module/`)](#modules-sass-scssmodule)
+- [4.7.0 — Build modernization](#470)
+- [Sass modules (`scss/module/`)](#sass-modules-scssmodule)
 - [AdminLTE 3](#adminlte-3)
-- [Compatibilité](#compatibilité)
+- [Compatibility](#compatibility)
 
 ## 4.7.0
 
-### Node.js et navigateurs
+### Node.js and browsers
 
-- Node.js 22+ requis pour la toolchain.
-- Internet Explorer 11 n'est plus pris en charge. Les préfixes `-ms-*` spécifiques et les hacks IE ont été retirés.
-- La cible navigateur est ajustée à `>= 0.5%, last 2 versions, not dead, Firefox ESR`.
+- Node.js 22+ required for the toolchain.
+- Internet Explorer 11 is no longer supported. IE-specific `-ms-*` prefixes and hacks have been removed.
+- The browser target is adjusted to `>= 0.5%, last 2 versions, not dead, Firefox ESR`.
 
 ### Sass
 
-- Le build officiel utilise maintenant Dart Sass.
-- Les dépréciations Dart Sass suivantes sont corrigées : fonctions globales (`map-get`, `lighten`, `mix`, etc.), `slash-div`, `color-functions`, `mixed-decls`, `abs-percent`.
-- La syntaxe `@import` fonctionne toujours. Cependant, Dart Sass affiche encore un avertissement `import` si vous surchargez des variables avant d'importer Bootstrap. Pour le masquer :
+- The official build now uses Dart Sass.
+- The following Dart Sass deprecations are fixed: global functions (`map-get`, `lighten`, `mix`, etc.), `slash-div`, `color-functions`, `mixed-decls`, `abs-percent`.
+- The `@import` syntax still works. However, Dart Sass emits an `import` warning if you override variables before importing Bootstrap. To silence it:
 
   ```js
   // vite.config.js
@@ -40,14 +40,14 @@ Ce fork maintient Bootstrap 4 avec une compatibilité moderne : Dart Sass 2, jQu
   sass --silence-deprecation=import --load-path=node_modules/@gernst/bootstrap/scss style.scss dist/style.css
   ```
 
-- La surcharge classique reste valide :
+- Classic variable overrides remain valid:
 
   ```scss
   $primary: #0056b3;
   @import "@gernst/bootstrap/scss/bootstrap";
   ```
 
-- `@use ... with()` est également pris en charge :
+- `@use ... with()` is also supported:
 
   ```scss
   @use "@gernst/bootstrap/scss/bootstrap" with (
@@ -57,14 +57,14 @@ Ce fork maintient Bootstrap 4 avec une compatibilité moderne : Dart Sass 2, jQu
 
 ### JavaScript
 
-- jQuery 4 est supporté en plus de jQuery 3. jQuery 1.x/2.x ne le sont plus.
-- Le paquet bundle embarque `@popperjs/core` v2. La globale reste `Popper` avec la nouvelle API `Popper.createPopper()`.
-- Les options `fallbackPlacement` et `boundary` des tooltips/popovers/dropdowns sont toujours acceptées avec leur ancien nom ; elles sont traduites en interne vers les noms Popper 2 (`fallbackPlacements`, `rootBoundary`/`boundary`).
+- jQuery 4 is supported alongside jQuery 3. jQuery 1.x/2.x are no longer supported.
+- The bundle package embeds `@popperjs/core` v2. The global stays `Popper` with the new `Popper.createPopper()` API.
+- The `fallbackPlacement` and `boundary` options of tooltips/popovers/dropdowns are still accepted under their old names; they are translated internally to the Popper 2 names (`fallbackPlacements`, `rootBoundary`/`boundary`).
 
 ### Popper
 
-- La peer dependency est passée de `popper.js` v1 à `@popperjs/core` v2.
-- Si vous chargiez Popper manuellement via CDN, utilisez :
+- The peer dependency moved from `popper.js` v1 to `@popperjs/core` v2.
+- If you loaded Popper manually via CDN, use:
 
   ```html
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
@@ -72,44 +72,44 @@ Ce fork maintient Bootstrap 4 avec une compatibilité moderne : Dart Sass 2, jQu
 
 ### Package
 
-- Le nom du paquet npm est `@gernst/bootstrap`.
-- Le paquet expose `exports` pour ESM/UMD, Sass, CSS et chemins JS individuels.
+- The npm package name is `@gernst/bootstrap`.
+- The package exposes `exports` for ESM/UMD, Sass, CSS and individual JS paths.
 
-## Modules Sass (`scss/module/`)
+## Sass modules (`scss/module/`)
 
-Un arbre Sass complet basé sur `@use`/`@forward` est disponible sous `scss/module/`, en parallèle de l'arbre `scss/` historique qui reste intact pour les consommateurs en `@import`.
+A complete Sass tree based on `@use`/`@forward` is available under `scss/module/`, in parallel with the legacy `scss/` tree which remains untouched for `@import` consumers.
 
 ```scss
-// Point d'entrée complet, configurable
+// Full, configurable entry point
 @use "@gernst/bootstrap/scss/module/bootstrap" with (
   $primary: #0056b3,
   $enable-rounded: false
 );
 ```
 
-- Toute variable `!default` peut être configurée via `with ()` sur le point d'entrée.
-- Le point d'entrée ré-exporte `functions`, `variables` et `mixins` : l'API publique est accessible sous le même espace de noms (`bootstrap.theme-color("primary")`, `@include bootstrap.border-radius()`, etc.).
-- Variantes allégées : `@gernst/bootstrap/scss/module/bootstrap-grid` et `bootstrap-reboot`.
-- La sortie CSS est identique à celle de l'arbre `@import` (vérifié par `npm run css-module-check`).
+- Any `!default` variable can be configured via `with ()` on the entry point.
+- The entry point re-exports `functions`, `variables` and `mixins`: the public API is accessible under a single namespace (`bootstrap.theme-color("primary")`, `@include bootstrap.border-radius()`, etc.).
+- Lightweight variants: `@gernst/bootstrap/scss/module/bootstrap-grid` and `bootstrap-reboot`.
+- The CSS output is identical to the `@import` tree's (verified by `npm run css-module-check`).
 
-### Différences avec la surcharge `@import`
+### Differences from `@import` overrides
 
 ```scss
-// Ancien comportement (@import) — toujours valide avec scss/
+// Legacy behavior (@import) — still valid with scss/
 $primary: #0056b3;
 @import "@gernst/bootstrap/scss/bootstrap";
 
-// Équivalent modules (scss/module/)
+// Module equivalent (scss/module/)
 @use "@gernst/bootstrap/scss/module/bootstrap" with (
   $primary: #0056b3
 );
 ```
 
-Les fonctions dépendantes des variables (`theme-color`, `color-yiq`, `color`, `gray`, `theme-color-level`, `escape-svg`) sont définies dans `scss/module/_variables.scss` afin d'éviter un cycle de modules ; elles restent exposées via le point d'entrée.
+Variable-dependent functions (`theme-color`, `color-yiq`, `color`, `gray`, `theme-color-level`, `escape-svg`) are defined in `scss/module/_variables.scss` to avoid a module cycle; they remain exposed through the entry point.
 
 ## AdminLTE 3
 
-AdminLTE 3 cible Bootstrap 4 et fonctionne tel quel avec le fork. Remplacez la dépendance par un alias npm :
+AdminLTE 3 targets Bootstrap 4 and works as-is with the fork. Replace the dependency with an npm alias:
 
 ```json
 {
@@ -120,16 +120,16 @@ AdminLTE 3 cible Bootstrap 4 et fonctionne tel quel avec le fork. Remplacez la d
 }
 ```
 
-- La compilation Sass : les `@import "~bootstrap/scss/..."` d'AdminLTE utilisent le préfixe `~` (convention webpack/sass-loader). Sous Vite ou Dart Sass direct, remplacez `~bootstrap` par `bootstrap` ou utilisez un résolveur compatible.
-- Le JavaScript : `adminlte.js` enregistre ses plugins jQuery (`PushMenu`, `CardWidget`, `Treeview`, `Layout`) normalement sous jQuery 4.
-- Vérifié par `npm run adminlte-check` (compile `adminlte.scss` contre le fork et contre Bootstrap 4.6.2 puis compare) et par des tests Playwright (`tests/e2e/adminlte.spec.js`).
+- Sass compilation: AdminLTE's `@import "~bootstrap/scss/..."` uses the `~` prefix (a webpack/sass-loader convention). Under Vite or plain Dart Sass, replace `~bootstrap` with `bootstrap` or use a compatible resolver.
+- JavaScript: `adminlte.js` registers its jQuery plugins (`PushMenu`, `CardWidget`, `Treeview`, `Layout`) normally under jQuery 4.
+- Verified by `npm run adminlte-check` (compiles `adminlte.scss` against both the fork and Bootstrap 4.6.2, then compares) and by Playwright tests (`tests/e2e/adminlte.spec.js`).
 
-## Compatibilité
+## Compatibility
 
-| Outil           | Minimum supporté         | Notes                                |
-| --------------- | ------------------------ | ------------------------------------ |
-| Dart Sass       | 1.79+                    | `sass` npm                           |
-| Node.js (build) | 22 LTS                   |                                      |
-| jQuery          | 3.5+                     | 4.x supporté                         |
-| @popperjs/core  | 2.11+                    | Bundle inclus ; peer pour standalone |
-| Navigateurs     | dernières versions + ESR | IE11 retiré                          |
+| Tool            | Minimum supported | Notes                        |
+| --------------- | ----------------- | ---------------------------- |
+| Dart Sass       | 1.79+             | `sass` npm                   |
+| Node.js (build) | 22 LTS            |                              |
+| jQuery          | 3.5+              | 4.x supported                |
+| @popperjs/core  | 2.11+             | Bundled; peer for standalone |
+| Browsers        | latest + ESR      | IE11 removed                 |

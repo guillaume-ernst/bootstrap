@@ -1,34 +1,34 @@
 # Changelog
 
-Toutes les modifications notables de ce projet seront documentées ici.
+All notable changes to this project will be documented here.
 
-Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
-et ce projet adhère à [Semantic Versioning](https://semver.org/lang/fr/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [4.7.0-dev]
 
-### Ajout
+### Added
 
-- Fork de Bootstrap 4.6.2 sous le nom de paquet `@gernst/bootstrap`.
-- Toolchain Node.js 22, Dart Sass, Rollup 4, Vitest et Playwright.
-- Tests de golden CSS, de parité des arbres Sass (`css-module-check`) et de compatibilité AdminLTE (`adminlte-check`).
-- Arbre Sass parallèle `scss/module/` basé sur `@use`/`@forward`, avec configuration via `@use ... with ()` ; l'arbre `scss/` historique reste intact pour les consommateurs en `@import`.
-- Suite de tests unitaires Vitest (remplace Karma/QUnit) et tests navigateur Playwright (modal, dropdown, tooltip, adminlte) sur Chromium, Firefox et WebKit.
-- Sorties ESM/UMD et `exports` dans `package.json`, avec champs `sass` et `style`.
-- Workflows GitHub Actions : lint, css, js, e2e, release avec provenance npm, et Dependabot.
+- Fork of Bootstrap 4.6.2 under the package name `@gernst/bootstrap`.
+- Node.js 22 toolchain, Dart Sass, Rollup 4, Vitest and Playwright.
+- Golden CSS tests, Sass tree parity checks (`css-module-check`) and an AdminLTE compatibility check (`adminlte-check`).
+- Parallel Sass tree `scss/module/` based on `@use`/`@forward`, configurable via `@use ... with ()`; the legacy `scss/` tree remains untouched for `@import` consumers.
+- Vitest unit test suite (replacing Karma/QUnit) and Playwright browser tests (modal, dropdown, tooltip, adminlte) on Chromium, Firefox and WebKit.
+- ESM/UMD outputs and `exports` in `package.json`, with `sass` and `style` fields.
+- GitHub Actions workflows: lint, css, js, e2e, release with npm provenance, and Dependabot.
 
-### Modifié
+### Changed
 
-- Sass : migration des fonctions globales (`map-get`, `mix`, `lighten`, etc.) vers les modules `sass:*`.
-- Suppression des avertissements Dart Sass `global-builtin`, `color-functions`, `if-function`, `slash-div` et `abs-percent` ; seule la dépréciation `import` demeure dans l'arbre `scss/` et peut être silençable.
-- JavaScript : jQuery 4 supporté en plus de jQuery 3 (la peer dependency accepte `>=3.5 <5` et la vérification de version a été ajustée).
-- Popper : `popper.js` v1 remplacé par `@popperjs/core` v2 ; le bundle embarque Popper 2 et les options historiques (`fallbackPlacement`, `boundary`) sont traduites vers l'API v2.
-- ESLint 9 (flat config) et stylelint alignés sur la syntaxe Sass moderne.
-- Internet Explorer 11 n'est plus supporté ; les préfixes `-ms-*` et hacks IE ont été retirés.
+- Sass: migrated global functions (`map-get`, `mix`, `lighten`, etc.) to `sass:*` modules.
+- Removed Dart Sass warnings `global-builtin`, `color-functions`, `if-function`, `slash-div` and `abs-percent`; only the `import` deprecation remains in the `scss/` tree and can be silenced.
+- JavaScript: jQuery 4 supported alongside jQuery 3 (the peer dependency accepts `>=3.5 <5` and the version check was adjusted).
+- Popper: `popper.js` v1 replaced by `@popperjs/core` v2; the bundle embeds Popper 2 and legacy options (`fallbackPlacement`, `boundary`) are translated to the v2 API.
+- ESLint 9 (flat config) and stylelint aligned with modern Sass syntax.
+- Internet Explorer 11 is no longer supported; `-ms-*` prefixes and IE hacks were removed.
 
 ## [4.6.2] - 2022-07-19
 
-Version amont originale. Voir [twbs/bootstrap@v4.6.2](https://github.com/twbs/bootstrap/releases/tag/v4.6.2).
+Original upstream version. See [twbs/bootstrap@v4.6.2](https://github.com/twbs/bootstrap/releases/tag/v4.6.2).
 
 [4.7.0-dev]: https://github.com/guillaume-ernst/bootstrap/compare/v4.6.2...HEAD
 [4.6.2]: https://github.com/twbs/bootstrap/releases/tag/v4.6.2
