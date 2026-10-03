@@ -1,0 +1,4 @@
+// Test: variables can be configured with @use ... with()
+@use "../../scss/bootstrap" with (
+  $primary: #123456
+);

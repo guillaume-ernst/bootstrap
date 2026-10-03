@@ -1,0 +1,4 @@
+// Test: variables can still be overridden before @import (AdminLTE-style)
+$primary: #123456;
+
+@import "../../scss/bootstrap";
