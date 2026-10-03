@@ -55,9 +55,11 @@ describe('Swipe', () => {
     swipeEl = fixtureEl.querySelector('div')
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     clearFixture()
     deleteDocumentElementOntouchstart()
+    // Let pending hammer-simulator gesture timers finish before jsdom teardown
+    await new Promise(resolve => setTimeout(resolve, 60))
   })
 
   describe('constructor', () => {
