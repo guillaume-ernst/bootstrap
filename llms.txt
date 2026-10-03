@@ -1,0 +1,32 @@
+# @gernst/bootstrap (v4-modern)
+
+> Maintained fork of Bootstrap 4.6.2, modernized for 2026-era stacks. Drop-in replacement for
+> `bootstrap@4`: byte-identical CSS, unchanged jQuery plugin API (`$.fn.*`) and `data-*`
+> attributes, but compatible with Dart Sass 2/3, jQuery 3.5+/4 and Popper 2 (@popperjs/core).
+> Verified against AdminLTE 3.
+
+## Install
+
+- `bootstrap` → `npm:@gernst/bootstrap@^4.7.0` (npm alias keeps every `import "bootstrap"` /
+  `@import "bootstrap"` / webpack `~bootstrap` working unchanged)
+
+## Key facts
+
+- JavaScript: jQuery plugins, jQuery >=3.5 <5 accepted; Popper v1 options are auto-translated
+  to Popper 2; `bootstrap.bundle` embeds Popper.
+- Sass: two trees shipped — `scss/` (legacy `@import`, zero-effort swap) and `scss/module/`
+  (`@use`/`@forward`, recommended, identical CSS output).
+- Module tree: namespaced members (`variables.$primary`, `functions.tint-color()`,
+  `mixins.media-breakpoint-up()`, `rfs.rfs()`); configure via `@use "variables" with (...)`.
+- Functions that read variables (`color`, `theme-color`, `color-yiq`, `gray`,
+  `theme-color-level`, `escape-svg`) live in the `variables` module.
+- No variable overrides before `@import` in module semantics — use `with()` instead.
+- Version 4 only; for Bootstrap 5 see the `v5-modern` branch.
+
+## Docs
+
+- [README.md](./README.md) — install, usage, compatibility matrix, demo links
+- [MIGRATION.md](./MIGRATION.md) — full changelog vs upstream 4.6.2
+- [AGENTS.md](./AGENTS.md) — step-by-step migration playbook for coding agents
+- [CHANGELOG.md](./CHANGELOG.md)
+- Live demo: https://guillaume-ernst.github.io/bootstrap/demo/v4/
