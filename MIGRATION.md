@@ -1,4 +1,4 @@
-# Migration guide — @gernst/bootstrap v5
+# Migration guide — bootstrap-modernized v5
 
 This fork maintains Bootstrap 5 with modern compatibility: Dart Sass 2, Node.js 22, ESLint 9,
 Vitest and Playwright. All releases stay on major version 5 to avoid any confusion with upstream
@@ -42,7 +42,7 @@ versioning. JavaScript remains vanilla — jQuery is not required.
 
   ```scss
   $primary: #0d6efd;
-  @import "@gernst/bootstrap/scss/bootstrap";
+  @import "bootstrap-modernized/scss/bootstrap";
   ```
 
 ### JavaScript
@@ -60,10 +60,10 @@ identical to the legacy tree (verified by `npm run test-css-module`).
 
 ```scss
 // Configure variables before loading the framework
-@use "@gernst/bootstrap/scss/module/variables" as vars with (
+@use "bootstrap-modernized/scss/module/variables" as vars with (
   $primary: #ff0000
 );
-@use "@gernst/bootstrap/scss/module/bootstrap";
+@use "bootstrap-modernized/scss/module/bootstrap";
 ```
 
 Key differences from the legacy tree:

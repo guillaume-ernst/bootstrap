@@ -1,4 +1,4 @@
-# @gernst/bootstrap (v5-modern)
+# bootstrap-modernized (v5-modern)
 
 > Maintained fork of Bootstrap 5.3.8, modernized for 2026-era stacks. Drop-in replacement for
 > `bootstrap@5`: byte-identical CSS, unchanged vanilla-JS API and `data-bs-*` attributes,
@@ -7,7 +7,7 @@
 
 ## Install
 
-- `bootstrap` → `npm:@gernst/bootstrap@^5.4.0` (npm alias keeps every `import "bootstrap"` /
+- `bootstrap` → `npm:bootstrap-modernized@^5.4.0` (npm alias keeps every `import "bootstrap"` /
   `@import "bootstrap"` working unchanged)
 
 ## Key facts
@@ -30,4 +30,4 @@
 - [MIGRATION.md](./MIGRATION.md) — full changelog vs upstream 5.3.8
 - [AGENTS.md](./AGENTS.md) — step-by-step migration playbook for coding agents
 - [CHANGELOG.md](./CHANGELOG.md)
-- Live demo: https://guillaume-ernst.github.io/bootstrap/demo/v5/
+- Live demo: https://guillaume-ernst.github.io/bootstrap-modernized/demo/v5/

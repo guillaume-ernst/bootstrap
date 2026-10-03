@@ -1,7 +1,7 @@
-# Agent guide — @gernst/bootstrap
+# Agent guide — bootstrap-modernized
 
 This file tells an agent how to migrate a consumer project from the legacy `bootstrap` npm
-package to this fork (`@gernst/bootstrap`), and how to work inside this repository.
+package to this fork (`bootstrap-modernized`), and how to work inside this repository.
 
 Two maintained branches exist:
 
@@ -21,7 +21,7 @@ Direct swap (source code may import `bootstrap` paths — see step 3):
 ```json
 {
   "dependencies": {
-    "bootstrap": "npm:@gernst/bootstrap@^5.4.0"
+    "bootstrap": "npm:bootstrap-modernized@^5.4.0"
   }
 }
 ```
@@ -31,7 +31,7 @@ For Bootstrap 4 projects:
 ```json
 {
   "dependencies": {
-    "bootstrap": "npm:@gernst/bootstrap@^4.7.0"
+    "bootstrap": "npm:bootstrap-modernized@^4.7.0"
   }
 }
 ```
@@ -39,7 +39,7 @@ For Bootstrap 4 projects:
 The npm alias keeps every `import "bootstrap"` / `@import "bootstrap"` working unchanged,
 including webpack `~bootstrap` prefixes used by themes like AdminLTE.
 
-Alternatively depend on `@gernst/bootstrap` directly and update import specifiers.
+Alternatively depend on `bootstrap-modernized` directly and update import specifiers.
 
 ### 2. JavaScript — no changes needed (v5)
 

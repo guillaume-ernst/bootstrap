@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Fork of Bootstrap 5.3.8 under the package name `@gernst/bootstrap`.
+- Fork of Bootstrap 5.3.8 under the package name `bootstrap-modernized`.
 - Node.js 22 toolchain, ESLint 9 flat config, Vitest and Playwright.
 - Golden CSS tests (`test-css-golden`) and Sass tree parity checks (`test-css-module`).
 - Parallel Sass tree `scss/module/` based on `@use`/`@forward`, configurable via
@@ -41,5 +41,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Original upstream version. See [twbs/bootstrap@v5.3.8](https://github.com/twbs/bootstrap/releases/tag/v5.3.8).
 
-[5.4.0-dev]: https://github.com/guillaume-ernst/bootstrap/compare/v5.3.8...HEAD
+[5.4.0-dev]: https://github.com/guillaume-ernst/bootstrap-modernized/compare/v5.3.8...HEAD
 [5.3.8]: https://github.com/twbs/bootstrap/releases/tag/v5.3.8

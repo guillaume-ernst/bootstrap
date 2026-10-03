@@ -1,4 +1,4 @@
-<h3 align="center">@gernst/bootstrap</h3>
+<h3 align="center">bootstrap-modernized</h3>
 
 <p align="center">
   Maintained fork of Bootstrap 5, modernized for Dart Sass 2 and 2026-era toolchains.
@@ -8,19 +8,19 @@
   All releases stay on major version 5 to avoid any confusion with upstream versioning.
   <br>
   <br>
-  <a href="https://github.com/guillaume-ernst/bootstrap/issues">Report an issue</a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/issues">Report an issue</a>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@gernst/bootstrap"><img src="https://img.shields.io/npm/v/@gernst/bootstrap" alt="npm version"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/github/license/guillaume-ernst/bootstrap" alt="License"></a>
-  <a href="https://coveralls.io/github/guillaume-ernst/bootstrap?branch=v5-modern"><img src="https://coveralls.io/repos/github/guillaume-ernst/bootstrap/badge.svg?branch=v5-modern" alt="Coverage"></a>
+  <a href="https://www.npmjs.com/package/bootstrap-modernized"><img src="https://img.shields.io/npm/v/bootstrap-modernized" alt="npm version"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/guillaume-ernst/bootstrap-modernized" alt="License"></a>
+  <a href="https://coveralls.io/github/guillaume-ernst/bootstrap-modernized?branch=v5-modern"><img src="https://coveralls.io/repos/github/guillaume-ernst/bootstrap-modernized/badge.svg?branch=v5-modern" alt="Coverage"></a>
   <br>
-  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/lint.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/lint.yml/badge.svg?branch=v5-modern" alt="Lint"></a>
-  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/css.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/css.yml/badge.svg?branch=v5-modern" alt="CSS"></a>
-  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/js.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/js.yml/badge.svg?branch=v5-modern" alt="JS Tests"></a>
-  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/e2e.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/e2e.yml/badge.svg?branch=v5-modern" alt="E2E"></a>
-  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/bundlewatch.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/bundlewatch.yml/badge.svg?branch=v5-modern" alt="Bundlewatch"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/lint.yml"><img src="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/lint.yml/badge.svg?branch=v5-modern" alt="Lint"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/css.yml"><img src="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/css.yml/badge.svg?branch=v5-modern" alt="CSS"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/js.yml"><img src="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/js.yml/badge.svg?branch=v5-modern" alt="JS Tests"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/e2e.yml"><img src="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/e2e.yml/badge.svg?branch=v5-modern" alt="E2E"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/bundlewatch.yml"><img src="https://github.com/guillaume-ernst/bootstrap-modernized/actions/workflows/bundlewatch.yml/badge.svg?branch=v5-modern" alt="Bundlewatch"></a>
 </p>
 
 ## Goal
@@ -54,23 +54,23 @@ In short: **same Bootstrap 5, but it compiles, runs and installs like a 2026 lib
 ## Installation
 
 ```bash
-npm install @gernst/bootstrap
+npm install bootstrap-modernized
 ```
 
 ```scss
 // With @import (legacy scss/ tree, import warning can be silenced)
-@import "@gernst/bootstrap/scss/bootstrap";
+@import "bootstrap-modernized/scss/bootstrap";
 
 // With @use (scss/module/ tree, recommended)
-@use "@gernst/bootstrap/scss/module/bootstrap";
+@use "bootstrap-modernized/scss/module/bootstrap";
 ```
 
 ```js
 // Bundle including Popper 2
-import "@gernst/bootstrap/dist/js/bootstrap.bundle";
+import "bootstrap-modernized/dist/js/bootstrap.bundle";
 
 // Standalone ESM (Popper 2 as a peer dependency)
-import { Modal, Dropdown } from "@gernst/bootstrap";
+import { Modal, Dropdown } from "bootstrap-modernized";
 ```
 
 ## Sass usage
@@ -79,11 +79,11 @@ The `scss/module/` tree is the recommended entry point. Configuration happens th
 `@use ... with()` on the `variables` module:
 
 ```scss
-@use "@gernst/bootstrap/scss/module/variables" as vars with (
+@use "bootstrap-modernized/scss/module/variables" as vars with (
   $primary: #0d6efd,
   $body-bg: #fafafa
 );
-@use "@gernst/bootstrap/scss/module/bootstrap";
+@use "bootstrap-modernized/scss/module/bootstrap";
 ```
 
 All functions and mixins are namespaced (`variables.$primary`, `functions.tint-color()`,
@@ -103,8 +103,8 @@ but jQuery is not a dependency of Bootstrap 5.
 
 ## Demo
 
-- [Live demo (v5-modern)](https://guillaume-ernst.github.io/bootstrap/demo/v5/) — the dist build exercising modal, dropdown, tooltip, popover and accordion with vanilla JS
-- [Live demo (v4-modern)](https://guillaume-ernst.github.io/bootstrap/demo/v4/) — the v4 fork running with jQuery 4 and Popper 2
+- [Live demo (v5-modern)](https://guillaume-ernst.github.io/bootstrap-modernized/demo/v5/) — the dist build exercising modal, dropdown, tooltip, popover and accordion with vanilla JS
+- [Live demo (v4-modern)](https://guillaume-ernst.github.io/bootstrap-modernized/demo/v4/) — the v4 fork running with jQuery 4 and Popper 2
 
 ## Documentation
 

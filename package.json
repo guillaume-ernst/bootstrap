@@ -1,5 +1,5 @@
 {
-  "name": "@gernst/bootstrap",
+  "name": "bootstrap-modernized",
   "description": "Maintained fork of Bootstrap 5 (v5.3.8 base). Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree, vanilla JS with Popper 2, modern Node.js toolchain.",
   "version": "5.4.0-dev",
   "config": {
@@ -22,12 +22,12 @@
     "ui-framework",
     "maintained"
   ],
-  "homepage": "https://github.com/guillaume-ernst/bootstrap#readme",
+  "homepage": "https://github.com/guillaume-ernst/bootstrap-modernized#readme",
   "author": "Guillaume Ernst",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guillaume-ernst/bootstrap.git"
+    "url": "git+https://github.com/guillaume-ernst/bootstrap-modernized.git"
   },
   "bugs": {
     "url": "https://github.com/twbs/bootstrap/issues"

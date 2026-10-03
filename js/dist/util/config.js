@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap config.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Bootstrap config.js v5.4.0-dev (https://github.com/guillaume-ernst/bootstrap-modernized#readme)
   * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
