@@ -14,7 +14,9 @@
 .nav-link {
   display: block;
   padding: $nav-link-padding-y $nav-link-padding-x;
-  text-decoration: if($link-decoration == none, null, none);
+  @if $link-decoration != none {
+    text-decoration: none;
+  }
 
   @include hover-focus() {
     text-decoration: none;
@@ -69,7 +71,6 @@
   }
 }
 
-
 //
 // Pills
 //
@@ -87,7 +88,6 @@
     background-color: $nav-pills-link-active-bg;
   }
 }
-
 
 //
 // Justified variants
@@ -109,7 +109,6 @@
     text-align: center;
   }
 }
-
 
 // Tabbable tabs
 //

@@ -10,9 +10,18 @@
   @if $emphasized-link-hover-darken-percentage != 0 {
     a#{$parent} {
       @include hover-focus() {
-        color: color.adjust($color, $lightness: -($emphasized-link-hover-darken-percentage)) !important;
+        color:
+          color.adjust(
+            $color,
+            $lightness: - ($emphasized-link-hover-darken-percentage)
+          ) !important;
       }
     }
   }
-  @include deprecate("`text-emphasis-variant()`", "v4.4.0", "v5", $ignore-warning);
+  @include deprecate(
+    "`text-emphasis-variant()`",
+    "v4.4.0",
+    "v5",
+    $ignore-warning
+  );
 }

@@ -92,7 +92,7 @@
   $g: color.channel($color, "green", $space: rgb);
   $b: color.channel($color, "blue", $space: rgb);
 
-  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * .001;
 
   @if ($yiq >= $yiq-contrasted-threshold) {
     @return $dark;
@@ -210,7 +210,7 @@
       $quotient: $quotient + 1;
     }
     $result: $result * 10 + $quotient;
-    $factor: $factor * 0.1;
+    $factor: $factor * .1;
     $remainder: $remainder * 10;
     $precision: $precision - 1;
     @if ($precision < 0 and $remainder >= $divisor * 5) {

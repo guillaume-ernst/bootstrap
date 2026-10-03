@@ -54,7 +54,7 @@
 @function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
   $next: breakpoint-next($name, $breakpoints);
   @if $next {
-    @return breakpoint-min($next, $breakpoints) - 0.02;
+    @return breakpoint-min($next, $breakpoints) - .02;
   }
 
   @return null;

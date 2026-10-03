@@ -5,8 +5,8 @@
 
 @mixin make-container($gutter: $grid-gutter-width) {
   width: 100%;
-  padding-right: $gutter * 0.5;
-  padding-left: $gutter * 0.5;
+  padding-right: $gutter * .5;
+  padding-left: $gutter * .5;
   margin-right: auto;
   margin-left: auto;
 }
@@ -14,8 +14,8 @@
 @mixin make-row($gutter: $grid-gutter-width) {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -$gutter * 0.5;
-  margin-left: -$gutter * 0.5;
+  margin-right: -$gutter * .5;
+  margin-left: -$gutter * .5;
 }
 
 // For each breakpoint, define the maximum width of the container in a media query
@@ -37,8 +37,8 @@
   // always setting `width: 100%;`. This works because we use `flex` values
   // later on to override this initial width.
   width: 100%;
-  padding-right: $gutter * 0.5;
-  padding-left: $gutter * 0.5;
+  padding-right: $gutter * .5;
+  padding-left: $gutter * .5;
 }
 
 @mixin make-col($size, $columns: $grid-columns) {
