@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+    <title>Dropdown</title>
+    <style>
+      .scrollable {
+        height: 120px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 200px;
+      }
+      .spacer {
+        height: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown mt-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOffset" data-toggle="dropdown" data-offset="10,20" aria-haspopup="true" aria-expanded="false">
+          Offset dropdown
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownOffset">
+          <a class="dropdown-item" href="#">Action</a>
+        </div>
+      </div>
+
+      <div class="scrollable mt-3">
+        <div class="spacer"></div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFlip" data-toggle="dropdown" data-flip="true" aria-haspopup="true" aria-expanded="false">
+            Flip dropdown
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownFlip">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+          </div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/dist/js/bootstrap.bundle.js"></script>
+  </body>
+</html>

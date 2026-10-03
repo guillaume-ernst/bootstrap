@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+    <title>Tooltip &amp; Popover</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <button type="button" class="btn btn-secondary" id="tooltipTop" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+        Tooltip on top
+      </button>
+
+      <button type="button" class="btn btn-secondary" id="tooltipRight" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+        Tooltip on right
+      </button>
+
+      <button type="button" class="btn btn-lg btn-danger" id="popoverBtn" data-toggle="popover" title="Popover title" data-content="And here's some amazing content.">
+        Click to toggle popover
+      </button>
+    </div>
+
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/dist/js/bootstrap.bundle.js"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="popover"]').popover()
+      })
+    </script>
+  </body>
+</html>
