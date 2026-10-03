@@ -16,7 +16,7 @@ export default [
       '**/*.min.js',
       '**/vendor/**',
       'js/coverage/**',
-      'package-lock.json'
+      '**/package-lock.json'
     ]
   },
   ...eslintConfigXo,

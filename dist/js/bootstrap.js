@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap [object Object] v4.7.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
+  * Bootstrap v4.7.0-dev (https://github.com/guillaume-ernst/bootstrap#readme)
   * Copyright 2011-2026 Guillaume Ernst
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -813,7 +813,8 @@
       }
       const elementInterval = parseInt(element.getAttribute('data-interval'), 10);
       if (elementInterval) {
-        this._config.defaultInterval = this._config.defaultInterval || this._config.interval;
+        var _this$_config;
+        (_this$_config = this._config).defaultInterval || (_this$_config.defaultInterval = this._config.interval);
         this._config.interval = elementInterval;
       } else {
         this._config.interval = this._config.defaultInterval || this._config.interval;
@@ -2573,7 +2574,7 @@
       $(this.getTipElement()).addClass(`${CLASS_PREFIX$1}-${attachment}`);
     }
     getTipElement() {
-      this.tip = this.tip || $(this.config.template)[0];
+      this.tip || (this.tip = $(this.config.template)[0]);
       return this.tip;
     }
     setContent() {
@@ -2957,7 +2958,7 @@
       $(this.getTipElement()).addClass(`${CLASS_PREFIX}-${attachment}`);
     }
     getTipElement() {
-      this.tip = this.tip || $(this.config.template)[0];
+      this.tip || (this.tip = $(this.config.template)[0]);
       return this.tip;
     }
     setContent() {

@@ -339,7 +339,8 @@
       }
       const elementInterval = parseInt(element.getAttribute('data-interval'), 10);
       if (elementInterval) {
-        this._config.defaultInterval = this._config.defaultInterval || this._config.interval;
+        var _this$_config;
+        (_this$_config = this._config).defaultInterval || (_this$_config.defaultInterval = this._config.interval);
         this._config.interval = elementInterval;
       } else {
         this._config.interval = this._config.defaultInterval || this._config.interval;

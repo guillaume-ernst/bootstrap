@@ -415,7 +415,7 @@
       $(this.getTipElement()).addClass(`${CLASS_PREFIX}-${attachment}`);
     }
     getTipElement() {
-      this.tip = this.tip || $(this.config.template)[0];
+      this.tip || (this.tip = $(this.config.template)[0]);
       return this.tip;
     }
     setContent() {

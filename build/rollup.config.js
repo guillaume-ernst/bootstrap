@@ -27,7 +27,8 @@ if (BUNDLE || ESM) {
 }
 
 const output = {
-  banner,
+  // Rollup calls output.banner with the chunk; getBanner takes a filename.
+  banner: () => banner(),
   file: path.resolve(__dirname, `../dist/js/${fileDest}`),
   format: ESM ? 'esm' : 'umd',
   name: 'bootstrap',

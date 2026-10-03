@@ -75,6 +75,7 @@
     "js": "npm-run-all2 --aggregate-output --parallel js-compile js-minify",
     "js-compile": "npm-run-all2 --aggregate-output --parallel js-compile-*",
     "js-compile-standalone": "rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap",
+    "js-compile-standalone-esm": "rollup --environment BUNDLE:false,ESM:true --config build/rollup.config.js --sourcemap",
     "js-compile-bundle": "rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap",
     "js-compile-plugins": "node build/build-plugins.js",
     "js-lint": "eslint --cache --cache-location .cache/.eslintcache --report-unused-disable-directives .",
