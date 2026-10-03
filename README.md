@@ -7,17 +7,17 @@
 <h3 align="center">@gernst/bootstrap</h3>
 
 <p align="center">
-  Fork maintenu de Bootstrap 4, modernisé pour Dart Sass 2, jQuery 4 et Popper 2.
+  Maintained fork of Bootstrap 4, modernized for Dart Sass 2, jQuery 4 and Popper 2.
   <br>
-  Toutes les releases restent en majeure 4 pour éviter toute confusion avec Bootstrap 5.
+  All releases stay on major version 4 to avoid any confusion with Bootstrap 5.
   <br>
   <br>
-  <a href="https://github.com/guillaume-ernst/bootstrap/issues">Signaler un problème</a>
+  <a href="https://github.com/guillaume-ernst/bootstrap/issues">Report an issue</a>
 </p>
 
-## Objectif
+## Goal
 
-Bootstrap 4.x n'est plus maintenu activement par l'amont, mais il reste très utilisé (p. ex. AdminLTE 3). Ce fork vise à maintenir une version compatible avec les chaînes d'outils de 2026 sans ajouter de nouvelles fonctionnalités.
+Bootstrap 4.x is no longer actively maintained upstream, but it remains widely used (e.g. AdminLTE 3). This fork keeps a version compatible with 2026-era toolchains without adding new features.
 
 ## Installation
 
@@ -26,27 +26,27 @@ npm install @gernst/bootstrap
 ```
 
 ```scss
-// Avec @import (arbre scss/ historique, avertissement import silençable)
+// With @import (legacy scss/ tree, import warning can be silenced)
 $primary: #0056b3;
 @import "@gernst/bootstrap/scss/bootstrap";
 
-// Avec @use (arbre scss/module/, recommandé)
+// With @use (scss/module/ tree, recommended)
 @use "@gernst/bootstrap/scss/module/bootstrap" with (
   $primary: #0056b3
 );
 ```
 
 ```js
-// Bundle incluant Popper 2
+// Bundle including Popper 2
 import "@gernst/bootstrap/dist/js/bootstrap.bundle";
 
-// Standalone : jQuery et @popperjs/core attendus en dépendances
+// Standalone: jQuery and @popperjs/core expected as dependencies
 import "@gernst/bootstrap/dist/js/bootstrap";
 ```
 
 ## AdminLTE 3
 
-AdminLTE 3 fonctionne tel quel avec le fork via un alias npm :
+AdminLTE 3 works as-is with the fork via an npm alias:
 
 ```json
 {
@@ -56,25 +56,25 @@ AdminLTE 3 fonctionne tel quel avec le fork via un alias npm :
 }
 ```
 
-Voir la [section AdminLTE de MIGRATION.md](./MIGRATION.md#adminlte-3) pour les détails Sass (`~` webpack) et JavaScript.
+See the [AdminLTE section in MIGRATION.md](./MIGRATION.md#adminlte-3) for Sass (`~` webpack) and JavaScript details.
 
-## Compatibilité
+## Compatibility
 
-| Outil           | Minimum supporté |
-| --------------- | ---------------- |
-| Dart Sass       | 1.79+            |
-| Node.js (build) | 22 LTS           |
-| jQuery          | 3.5+ (4.x OK)    |
-| @popperjs/core  | 2.11+            |
-| AdminLTE        | 3.x              |
-| Navigateurs     | modernes + ESR   |
+| Tool            | Minimum supported |
+| --------------- | ----------------- |
+| Dart Sass       | 1.79+             |
+| Node.js (build) | 22 LTS            |
+| jQuery          | 3.5+ (4.x OK)     |
+| @popperjs/core  | 2.11+             |
+| AdminLTE        | 3.x               |
+| Browsers        | modern + ESR      |
 
 ## Documentation
 
-- [MIGRATION.md](./MIGRATION.md) — changements par rapport à Bootstrap 4.6.2
+- [MIGRATION.md](./MIGRATION.md) — changes compared to Bootstrap 4.6.2
 - [CHANGELOG.md](./CHANGELOG.md)
-- Documentation Bootstrap 4.6 amont : https://getbootstrap.com/docs/4.6/
+- Upstream Bootstrap 4.6 docs: https://getbootstrap.com/docs/4.6/
 
-## Licences
+## License
 
-Le code original est sous licence MIT (Copyright Twitter, Inc. et The Bootstrap Authors). Ce fork y ajoute des modifications sous copyright Guillaume Ernst, toujours sous licence MIT. Voir [LICENSE](./LICENSE).
+The original code is MIT licensed (Copyright Twitter, Inc. and The Bootstrap Authors). This fork adds modifications copyrighted by Guillaume Ernst, also under MIT. See [LICENSE](./LICENSE).
