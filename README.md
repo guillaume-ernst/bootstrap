@@ -101,6 +101,11 @@ All functions and mixins are namespaced (`variables.$primary`, `functions.tint-c
 The optional jQuery compatibility bridge still activates when `window.jQuery` is present,
 but jQuery is not a dependency of Bootstrap 5.
 
+## Demo
+
+- [Live demo (v5-modern)](https://guillaume-ernst.github.io/bootstrap/v5/) — the dist build exercising modal, dropdown, tooltip, popover and accordion with vanilla JS
+- [Live demo (v4-modern)](https://guillaume-ernst.github.io/bootstrap/v4/) — the v4 fork running with jQuery 4 and Popper 2
+
 ## Documentation
 
 - [MIGRATION.md](./MIGRATION.md) — changes compared to Bootstrap 5.3.8
