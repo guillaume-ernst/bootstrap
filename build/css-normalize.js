@@ -10,18 +10,18 @@
  *   node build/css-normalize.js input.css > output.css
  */
 
-const fs = require('fs')
+const fs = require('node:fs')
 const postcss = require('postcss')
-const path = require('path')
+const path = require('node:path')
 
 function lowerColorValue(value) {
   // Lowercase hex colors (preserve opacity variants)
-  return value.replace(/#([0-9A-Fa-f]{3,8})/g, (match) => match.toLowerCase())
+  return value.replaceAll(/#([0-9A-Fa-f]{3,8})/g, match => match.toLowerCase())
 }
 
 function roundNumbers(value) {
   // Round decimal numbers to 6 decimal places
-  return value.replace(/-?\d+\.\d+/g, (match) => {
+  return value.replaceAll(/-?\d+\.\d+/g, match => {
     const n = parseFloat(match)
     const rounded = Math.round(n * 1_000_000) / 1_000_000
     return rounded.toString()
@@ -33,18 +33,18 @@ async function normalize(inputPath) {
   const root = postcss.parse(css)
 
   // Remove all comments
-  root.walkComments((comment) => comment.remove())
+  root.walkComments(comment => comment.remove())
 
-  root.walkDecls((decl) => {
+  root.walkDecls(decl => {
     decl.value = lowerColorValue(decl.value)
     decl.value = roundNumbers(decl.value)
   })
 
   // Sort declarations within each rule alphabetically (ignores nested rules)
-  root.walkRules((rule) => {
-    const decls = rule.nodes.filter((node) => node.type === 'decl')
+  root.walkRules(rule => {
+    const decls = rule.nodes.filter(node => node.type === 'decl')
     decls.sort((a, b) => a.prop.localeCompare(b.prop))
-    decls.forEach((decl) => rule.append(decl))
+    decls.forEach(decl => rule.append(decl))
   })
 
   const result = root.toString(postcss.stringify)
@@ -57,7 +57,7 @@ if (!input) {
   process.exit(1)
 }
 
-normalize(input).catch((err) => {
-  console.error(err)
+normalize(input).catch(error => {
+  console.error(error)
   process.exit(1)
 })

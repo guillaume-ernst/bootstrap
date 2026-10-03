@@ -41,3 +41,8 @@ Thumbs.db
 /js/coverage/
 /node_modules/
 .tmp-golden/
+
+# Test output
+/test-results/
+/playwright-report/
+/.cache/

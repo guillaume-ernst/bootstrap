@@ -1,3 +1,5 @@
+'use strict'
+
 module.exports = {
   presets: [
     [
@@ -11,7 +13,7 @@ module.exports = {
   ],
   env: {
     test: {
-      plugins: [ 'istanbul' ]
+      plugins: ['istanbul']
     }
   }
-};
+}

@@ -9,7 +9,7 @@
 
 'use strict'
 
-const path = require('path')
+const path = require('node:path')
 const sh = require('shelljs')
 
 const pkg = require('../package.json')
@@ -73,10 +73,10 @@ sh.rm(`${distFolder}/index.html`)
 sh.find(`${distFolder}/**/*.html`).forEach(file => {
   const fileContents = sh.cat(file)
     .toString()
-    .replace(new RegExp(`"/docs/${versionShort}/`, 'g'), '"../')
-    .replace(/"..\/dist\//g, '"../assets/dist/')
-    .replace(/(<link href="\.\.\/.*) integrity=".*>/g, '$1>')
-    .replace(/(<script src="\.\.\/.*) integrity=".*>/g, '$1></script>')
+    .replaceAll(new RegExp(`"/docs/${versionShort}/`, 'g'), '"../')
+    .replaceAll(/"..\/dist\//g, '"../assets/dist/')
+    .replaceAll(/(<link href="\.\.\/.*) integrity=".*>/g, '$1>')
+    .replaceAll(/(<script src="\.\.\/.*) integrity=".*>/g, '$1></script>')
     .replace(/( +)<!-- favicons(.|\n)+<style>/i, '    <style>')
   new sh.ShellString(fileContents).to(file)
 })

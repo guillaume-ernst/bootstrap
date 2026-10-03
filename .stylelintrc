@@ -3,6 +3,8 @@
     "stylelint-config-twbs-bootstrap"
   ],
   "rules": {
+    "scss/at-function-named-arguments": null,
+    "scss/operator-no-newline-after": null,
     "declaration-property-value-disallowed-list": {
       "border": "none",
       "outline": "none"

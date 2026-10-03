@@ -6,9 +6,9 @@
  * committed golden CSS (the official v4.6.2 libsass build).
  */
 
-const fs = require('fs')
-const path = require('path')
-const { execSync } = require('child_process')
+const fs = require('node:fs')
+const path = require('node:path')
+const { execSync } = require('node:child_process')
 
 const ROOT = path.resolve(__dirname, '..')
 const OUT_DIR = path.join(ROOT, '.tmp-golden')

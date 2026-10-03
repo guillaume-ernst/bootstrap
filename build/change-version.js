@@ -9,8 +9,8 @@
 
 'use strict'
 
-const fs = require('fs').promises
-const path = require('path')
+const fs = require('node:fs').promises
+const path = require('node:path')
 const globby = require('globby')
 
 const VERBOSE = process.argv.includes('--verbose')
@@ -27,18 +27,16 @@ const GLOBBY_OPTIONS = {
 
 // Blame TC39... https://github.com/benjamingr/RegExp.escape/issues/37
 function regExpQuote(string) {
-  return string.replace(/[$()*+.?[\\\]^{|}-]/g, '\\$&')
+  return string.replaceAll(/[$()*+.?[\\\]^{|}-]/g, String.raw`\$&`)
 }
 
 function regExpQuoteReplacement(string) {
-  return string.replace(/\$/g, '$$')
+  return string.replaceAll('$', '$$')
 }
 
 async function replaceRecursively(file, oldVersion, newVersion) {
   const originalString = await fs.readFile(file, 'utf8')
-  const newString = originalString.replace(
-    new RegExp(regExpQuote(oldVersion), 'g'), regExpQuoteReplacement(newVersion)
-  )
+  const newString = originalString.replaceAll(new RegExp(regExpQuote(oldVersion), 'g'), regExpQuoteReplacement(newVersion))
 
   // No need to move any further if the strings are identical
   if (originalString === newString) {
