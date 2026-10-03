@@ -3,6 +3,7 @@ name: Bundlewatch
 on:
   push:
     branches:
+      - v5-modern
       - main
   pull_request:
   workflow_dispatch:

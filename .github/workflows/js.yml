@@ -3,6 +3,7 @@ name: JS Tests
 on:
   push:
     branches:
+      - v5-modern
       - main
   pull_request:
   workflow_dispatch:
@@ -42,7 +43,7 @@ jobs:
         run: npm run js
 
       - name: Run JS tests
-        run: npm run js-test
+        run: npm run test:unit
 
       - name: Run Coveralls
         uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
