@@ -12,6 +12,12 @@ export default defineConfig({
     environment: browserEnabled ? undefined : 'jsdom',
     include: ['tests/unit/**/*.spec.js', 'tests/sass/**/*.spec.js'],
     setupFiles: ['./tests/unit/setup.js'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      reportsDirectory: 'js/coverage',
+      include: ['js/src/**/*.js']
+    },
     env: {
       JQUERY: jqueryMajor,
       BUNDLE: bundleMode ? 'true' : 'false'

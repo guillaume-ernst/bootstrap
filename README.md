@@ -15,6 +15,18 @@
   <a href="https://github.com/guillaume-ernst/bootstrap/issues">Report an issue</a>
 </p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@gernst/bootstrap"><img src="https://img.shields.io/npm/v/@gernst/bootstrap" alt="npm version"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/guillaume-ernst/bootstrap" alt="License"></a>
+  <a href="https://coveralls.io/github/guillaume-ernst/bootstrap?branch=v4-modern"><img src="https://coveralls.io/repos/github/guillaume-ernst/bootstrap/badge.svg?branch=v4-modern" alt="Coverage"></a>
+  <br>
+  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/lint.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/lint.yml/badge.svg?branch=v4-modern" alt="Lint"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/css.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/css.yml/badge.svg?branch=v4-modern" alt="CSS"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/js.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/js.yml/badge.svg?branch=v4-modern" alt="JS"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/e2e.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/e2e.yml/badge.svg?branch=v4-modern" alt="E2E"></a>
+  <a href="https://github.com/guillaume-ernst/bootstrap/actions/workflows/bundlewatch.yml"><img src="https://github.com/guillaume-ernst/bootstrap/actions/workflows/bundlewatch.yml/badge.svg?branch=v4-modern" alt="Bundlewatch"></a>
+</p>
+
 ## Goal
 
 Bootstrap 4.x is no longer actively maintained upstream, but it remains widely used (e.g. AdminLTE 3). This fork keeps a version compatible with 2026-era toolchains without adding new features.

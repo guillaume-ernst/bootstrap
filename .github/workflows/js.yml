@@ -43,3 +43,17 @@ jobs:
           JQUERY: ${{ matrix.jquery }}
           BUNDLE: ${{ matrix.bundle }}
         run: npm run test:unit
+
+      - name: Run coverage
+        if: matrix.jquery == 4 && matrix.bundle == false
+        env:
+          JQUERY: 4
+          BUNDLE: false
+        run: npm run test:coverage
+
+      - name: Run Coveralls
+        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
+        if: ${{ matrix.jquery == 4 && matrix.bundle == false && !github.event.repository.fork }}
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          path-to-lcov: "./js/coverage/lcov.info"
