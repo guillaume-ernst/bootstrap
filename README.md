@@ -7,6 +7,8 @@
   <br>
   All releases stay on major version 5 to avoid any confusion with upstream versioning.
   <br>
+  <em>Unofficial community fork — not affiliated with the Bootstrap team.</em>
+  <br>
   <br>
   <a href="https://github.com/guillaume-ernst/bootstrap-modernized/issues">Report an issue</a>
 </p>
