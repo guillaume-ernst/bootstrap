@@ -59,7 +59,9 @@ describe('Swipe', () => {
     clearFixture()
     deleteDocumentElementOntouchstart()
     // Let pending hammer-simulator gesture timers finish before jsdom teardown
-    await new Promise(resolve => setTimeout(resolve, 60))
+    await new Promise(resolve => {
+      setTimeout(resolve, 60)
+    })
   })
 
   describe('constructor', () => {

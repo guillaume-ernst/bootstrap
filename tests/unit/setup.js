@@ -130,6 +130,18 @@ const cssEscape = id => id.replaceAll(/[^\w-]/g, String.raw`\$&`)
 
 globalThis.CSS.escape ??= cssEscape
 
+// After jsdom teardown, trailing timers (e.g. emulateTransitionEnd) may still
+// call dispatchEvent with a Node-native Event, which jsdom rejects with an
+// unhandled exception. Drop those late events instead.
+const JSDOMEvent = globalThis.Event
+const originalDispatchEvent = Element.prototype.dispatchEvent
+Element.prototype.dispatchEvent = function (event) {
+  if (!(event instanceof JSDOMEvent)) {
+    return false
+  }
+  return originalDispatchEvent.call(this, event)
+}
+
 // Touch gesture simulator (was loaded as a global script by karma)
 // Its IIFE registers window.Simulator and fakes touch support when
 // PointerEvent is unavailable, which is the case under jsdom.
