@@ -139,7 +139,30 @@ export default [
         ...globals.browser,
         bootstrap: 'readonly',
         sinon: 'readonly',
-        Simulator: 'readonly'
+        Simulator: 'readonly',
+        // Vitest
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        vi: 'readonly',
+        vitest: 'readonly',
+        // Jasmine compatibility shims (see tests/unit/setup.js)
+        spyOn: 'readonly',
+        spyOnProperty: 'readonly',
+        createSpy: 'readonly',
+        jasmine: 'readonly',
+        fail: 'readonly',
+        // Test helpers
+        fixture: 'readonly',
+        EventHandler: 'readonly',
+        // jQuery bridge spec (optional plugin, not a runtime dep)
+        jQuery: 'readonly',
+        $: 'readonly'
       }
     },
     rules: {
@@ -159,7 +182,18 @@ export default [
       'unicorn/no-typeof-undefined': 'off',
       'unicorn/prefer-add-event-listener': 'off',
       'unicorn/prefer-spread': 'off',
-      'unicorn/no-unused-properties': 'off'
+      'unicorn/no-unused-properties': 'off',
+      // dist/ is not built at lint time
+      'import/no-unresolved': ['error', { ignore: [String.raw`^\.{1,2}/.*dist`] }]
+    }
+  },
+  {
+    files: ['tests/integration/rollup.*.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node
+      }
     }
   },
   {

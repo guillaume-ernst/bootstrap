@@ -6,7 +6,8 @@ const browserEnabled = process.env.BROWSER === 'true'
 
 export default defineConfig({
   test: {
-    globals: false,
+    globals: true,
+    restoreMocks: true,
     environment: browserEnabled ? undefined : 'jsdom',
     include: ['tests/unit/**/*.spec.js', 'tests/sass/**/*.spec.js'],
     setupFiles: ['./tests/unit/setup.js'],
