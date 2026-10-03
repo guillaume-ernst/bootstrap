@@ -1,0 +1,33 @@
+# @gernst/bootstrap (v5-modern)
+
+> Maintained fork of Bootstrap 5.3.8, modernized for 2026-era stacks. Drop-in replacement for
+> `bootstrap@5`: byte-identical CSS, unchanged vanilla-JS API and `data-bs-*` attributes,
+> but with deprecation-free Sass sources and a parallel `@use`/`@forward` module tree.
+> Vanilla JS only — no jQuery required; Popper 2 via @popperjs/core.
+
+## Install
+
+- `bootstrap` → `npm:@gernst/bootstrap@^5.4.0` (npm alias keeps every `import "bootstrap"` /
+  `@import "bootstrap"` working unchanged)
+
+## Key facts
+
+- JavaScript: vanilla, API identical to upstream 5.3.8; optional jQuery bridge still activates
+  when `window.jQuery` exists; `bootstrap.bundle` embeds Popper 2.
+- Sass: two trees shipped — `scss/` (legacy `@import`, zero-effort swap) and `scss/module/`
+  (`@use`/`@forward`, recommended, identical CSS output verified by `npm run test-css-module`).
+- Module tree: namespaced members (`variables.$primary`, `functions.tint-color()`,
+  `mixins.media-breakpoint-up()`, `rfs.rfs()`); configure via `@use "variables" with (...)`.
+- Functions that read variables (`rgba-css-var`, `color-contrast`, `escape-svg`,
+  `assert-ascending`) live in the `variables` module.
+- `utilities/api` accepts a `$utilities-subset` config; `mixins/grid` accepts
+  `$include-column-box-sizing`.
+- Version 5 only; for Bootstrap 4 (AdminLTE 3 era) see the `v4-modern` branch.
+
+## Docs
+
+- [README.md](./README.md) — install, usage, compatibility matrix, demo links
+- [MIGRATION.md](./MIGRATION.md) — full changelog vs upstream 5.3.8
+- [AGENTS.md](./AGENTS.md) — step-by-step migration playbook for coding agents
+- [CHANGELOG.md](./CHANGELOG.md)
+- Live demo: https://guillaume-ernst.github.io/bootstrap/demo/v5/
