@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-modernized",
   "description": "Maintained fork of Bootstrap 4 (v4.6.2 base). jQuery 3.5+/4 and Popper 2 support, Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree. Drop-in replacement for bootstrap@4, works with AdminLTE 3.",
-  "version": "4.7.0-dev",
+  "version": "4.7.0",
   "config": {
     "version_short": "4.7"
   },
