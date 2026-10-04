@@ -5,7 +5,7 @@ All notable changes to this project will be documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.4.0-dev]
+## [5.4.0] - 2026-10-03
 
 ### Added
 
@@ -41,5 +41,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Original upstream version. See [twbs/bootstrap@v5.3.8](https://github.com/twbs/bootstrap/releases/tag/v5.3.8).
 
-[5.4.0-dev]: https://github.com/guillaume-ernst/bootstrap-modernized/compare/v5.3.8...HEAD
+[5.4.0]: https://github.com/guillaume-ernst/bootstrap-modernized/compare/v5.3.8...v5.4.0
 [5.3.8]: https://github.com/twbs/bootstrap/releases/tag/v5.3.8
