@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-modernized",
   "description": "Maintained fork of Bootstrap 5 (v5.3.8 base). Dart Sass 2/3 clean sources, parallel @use/@forward scss/module tree, vanilla JS with Popper 2, modern Node.js toolchain.",
-  "version": "5.4.0-dev",
+  "version": "5.4.0",
   "config": {
     "version_short": "5.4"
   },
